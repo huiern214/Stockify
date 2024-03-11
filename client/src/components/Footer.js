@@ -69,7 +69,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="bg-white">
+      <div className="bg-white mt-5 mb-5">
           <p className="text-sm text-center text-gray-600">© 2024 Stockify. All rights reserved.</p>
       </div>
     </footer>
