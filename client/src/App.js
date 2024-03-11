@@ -20,7 +20,6 @@ function App() {
       <BrowserRouter>
         <ToastContainer />
         <Routes >
-          {/* <Route path="/signin" replace element={<SignIn />} /> */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
