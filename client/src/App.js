@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
+import StockDetails from './pages/StockDetails';
 import News from './pages/News';
 import Portfolio from './pages/Portfolio';
 import Learn from './pages/Learn';
@@ -25,6 +26,7 @@ function App() {
 
           <Route element={<WithNavbar />}>
             <Route path="/" element={<Home />} />
+            <Route path="/stocks/:stockId" element={<StockDetails />} />
             <Route path="/news" element={<News />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/learn" element={<Learn />} />
