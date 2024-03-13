@@ -22,5 +22,5 @@ export const theme = {
 };
 
 export const plugins = [
-  "tailwindcss", "autoprefixer",
+  "tailwindcss", "autoprefixer", require('@tailwindcss/forms'),
 ];
