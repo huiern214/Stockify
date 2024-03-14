@@ -1,20 +1,64 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { useState } from 'react'
+import { Menu, Transition } from '@headlessui/react'
 import Filter from '../assets/Filter.png'
 import Close from '../assets/Close.png'
-import Modal from 'react-modal'
+import Plus from '../assets/Plus.png'
 
 function FilterButton() {
+  const filterOptions = [
+    { id: 'AAPL', name: 'AAPL' },
+    { id: 'MSFT', name: 'MSFT' },
+    { id: 'TSLA', name: 'TSLA' },
+  ]
+
   return (
-  <button className="flex items-center my-5 p-2 border border-black rounded-full hover:bg-gray-200">
-    <img src={Filter} alt="Filter" className="w-5 h-5 mr-2" />
-    Filter
-  </button>
+    <></>
+    // <Menu as="div" className="flex items-center my-5 p-2 border border-black rounded-full hover:bg-gray-200">
+    //   <div>
+    //     <Menu.Button>
+    //       <img src={Filter} alt="Filter" className="w-5 h-5 mr-2" />
+    //       Filter
+    //     </Menu.Button>
+    //   </div>
+
+    //   <Transition
+    //     as={Fragment}
+    //     enter="transition ease-out duration-100"
+    //     enterFrom="transform opacity-0 scale-95"
+    //     enterTo="transform opacity-100 scale-100"
+    //     leave="transition ease-in duration-75"
+    //     leaveFrom="transform opacity-100 scale-100"
+    //     leaveTo="transform opacity-0 scale-95"
+    //     >
+    //       <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+    //         <div className="py-1">
+    //           {filterOptions.map((option) => (
+    //             <Menu.Item key={option.id}>
+    //               {({ active }) => (
+    //                 <div className="relative flex gap-x-3">
+    //                   <div className="flex h-6 items-center">
+    //                     <input
+    //                       id={option.id}
+    //                       name={option.id}
+    //                       type="checkbox"
+    //                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+    //                     />
+    //                   </div>
+    //                   <div className="text-sm leading-6">
+    //                     <label htmlFor={option.id} className="font-medium text-gray-900">
+    //                       {option.label}
+    //                     </label>
+    //                   </div>
+    //                 </div>
+    //               )}
+    //             </Menu.Item>
+    //           ))}
+    //         </div>
+    //       </Menu.Items>
+    //     </Transition>
+    // </Menu>
   )
-}
-
-function FilterModal() {
-
 }
 
 function DateSelector({ variation }) {
@@ -91,8 +135,9 @@ function AddTransactionButton() {
 
   return (
     <div>
-      <button onClick={toggleModal} className="p-2 border rounded-lg bg-[#0077B6] text-white hover:bg-[#0077B6]/80">
+      <button onClick={toggleModal} className="flex items-center p-2 border rounded-lg bg-[#0077B6] text-white hover:bg-[#0077B6]/80">
         Add Transaction
+        <img src={Plus} alt="Add Transaction" className="w-5 h-5 ml-2" />
       </button>
 
       {modal && (
