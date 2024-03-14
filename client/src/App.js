@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import StockDetails from './pages/StockDetails';
 import News from './pages/News';
 import Portfolio from './pages/Portfolio';
+import Analyze from './pages/Analyze';
 import Learn from './pages/Learn';
 import Profile from './pages/Profile';
 import NotFound404 from './pages/NotFound404';
@@ -28,6 +29,7 @@ function App() {
             <Route path="/stocks/:stockId" element={<StockDetails />} />
             <Route path="/news" element={<News />} />
             <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/analyze" element={<Analyze />} />
             <Route path="/learn" element={<Learn />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFound404 />} />
