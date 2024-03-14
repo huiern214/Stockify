@@ -11,6 +11,7 @@ import StockDetails from './pages/StockDetails';
 import News from './pages/News';
 import Portfolio from './pages/Portfolio';
 import Analyze from './pages/Analyze';
+import Report from './pages/Report';
 import Learn from './pages/Learn';
 import Profile from './pages/Profile';
 import NotFound404 from './pages/NotFound404';
@@ -30,6 +31,7 @@ function App() {
             <Route path="/news" element={<News />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/analyze" element={<Analyze />} />
+            <Route path="/report" element={<Report />} />
             <Route path="/learn" element={<Learn />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFound404 />} />

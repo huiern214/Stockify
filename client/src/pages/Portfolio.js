@@ -347,9 +347,9 @@ function PortfolioGrid() {
 
 const Portfolio = () => {
   return (
-    <div className="bg-white-100 text-gray-600 body-font w-full mt-10 mb-20">
+    <div className="text-black body-font w-full mt-10 mb-20">
       <div className="ml-5 text-lg font-bold">
-      My Portfolio
+        My Portfolio
       </div>
       <div className="flex items-center justify-between mx-5">
         <FilterButton className="mt-5 ml-5" />
