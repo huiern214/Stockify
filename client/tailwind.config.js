@@ -16,10 +16,11 @@ export const theme = {
   extend: {
     colors: {
       primary: '#3066be',
+      deep_blue: '#03045e'
     },
   },
 };
 
 export const plugins = [
-  "tailwindcss", "autoprefixer",
+  "tailwindcss", "autoprefixer", require('@tailwindcss/forms'),
 ];
