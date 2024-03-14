@@ -1,6 +1,6 @@
 import React from 'react'
 import Logo from '../assets/Logo.png'
-import Profile from '../assets/Profile photo.png'
+import ProfilePhoto from '../assets/Profile photo.png'
 import { useState } from 'react';
 
 const Navbar = () => {
@@ -17,51 +17,21 @@ const Navbar = () => {
     };
     
     return (
-        <nav className="bg-white border-gray-200 dark:bg-gray-900">
+        <nav className="bg-white border-gray-200 dark:bg-gray-900 border-b">
         <div className="max-w-screen-xl flex flex-wrap mx-auto p-4 justify-between items-center">
             <div className="flex">
                 <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src={Logo} className="h-8" alt="Stockify Logo" />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Stockify</span>
                 </a>
-                <div className={`mr-10 pr-10 ml-5 pl-5 md:mr-0 md:pr-0`} />
-                
-                <div className={`${isMenuOpen ? "" : "hidden"} items-center justify-between w-full md:flex md:w-auto md:order-1 md:justify-start`} id="navbar-user">
-                <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                <li>
-                    <a href="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="/news" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                        News
-                    </a>
-                </li>
-                <li>
-                    <a href="/portfolio" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                        Portfolio
-                    </a>
-                </li>
-                <li>
-                    <a href="/analyze" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                        Analyze
-                    </a>
-                </li>
-                <li>
-                    <a href="/learn" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                        Learn
-                    </a>
-                </li>
-                </ul>
-                </div>
+                <div className={`mr-10 pr-10 md:hidden`} />
             </div>        
             
             {/* User Profile Toggle */}
             <div className="relative items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                 <button type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" onClick={toggleUserMenu}>
                     <span className="sr-only">Open user menu</span>
-                    <img className="w-8 h-8 rounded-full" src={Profile} alt="user"/>
+                    <img className="w-8 h-8 rounded-full" src={ProfilePhoto} alt="user"/>
                 </button>
                 <div className={`${isUserMenuOpen ? "" : "hidden"} absolute right-0 mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`} id="user-dropdown">
                     <div className="px-4 py-3">
@@ -88,7 +58,33 @@ const Navbar = () => {
                 <svg className="w-5 h-5" aria-hidden="true" fill="none" viewBox="0 0 17 14">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
                 </svg>
-            </button>    
+            </button>
+
+            <div className={`${isMenuOpen ? "" : "hidden"} items-center justify-between w-full md:flex md:w-auto md:order-1 md:justify-start mr-20`} id="navbar-user">
+                <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <li>
+                    <a href="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="/news" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                        News
+                    </a>
+                </li>
+                <li>
+                    <a href="/portfolio" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                        Portfolio
+                    </a>
+                </li>
+                <li>
+                    <a href="/learn" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                        Learn
+                    </a>
+                </li>
+                </ul>
+            </div>    
+            
         </div>
         </nav>
     )
