@@ -53,14 +53,14 @@ const Profile = () => {
           )}
         </div>
 
-        <button className="w-full h-full mt-8 p-3 overflow-hidden rounded-lg bg-primary flex items-center justify-center">
+        <button className="w-full h-full mt-8 p-3 overflow-hidden rounded-lg bg-primary hover:bg-blue-500 flex items-center justify-center">
           <p className="text-sm font-semibold text-left text-white">
             Reset Password
           </p>
         </button>
 
-        <button className="w-full h-full mt-5 p-3 overflow-hidden rounded-lg bg-white border border-primary flex items-center justify-center">
-          <p className="text-sm font-semibold text-left text-primary">
+        <button className="w-full h-full mt-5 p-3 overflow-hidden rounded-lg bg-white border border-primary text-primary hover:border-blue-500 hover:text-blue-500 flex items-center justify-center">
+          <p className="text-sm font-semibold text-left">
             Log out
           </p>
         </button>
