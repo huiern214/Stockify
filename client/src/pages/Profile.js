@@ -8,13 +8,13 @@ const Profile = () => {
 
   return (
     <div className="w-full h-full bg-white">
-      <p className="text-4xl font-semibold text-left mt-5 mb-10 ml-20 text-black">
+      <p className="text-2xl font-semibold text-left mt-5 mb-10 ml-[10%] text-black">
       Profile
       </p>
 
       <img className="w-20 h-20 rounded-full m-auto" src={ProfilePhoto} alt="user" />
       
-      <div className="flex flex-col justify-center mt-10 mb-16 ml-[36%] mr-[36%]">
+      <div className="flex flex-col justify-center mt-10 mb-16 ml-[10%] mr-[10%] md:ml-[36%] md:mr-[36%]">
         <div>
             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
             <input type="email" id="email" class="bg-gray-50 border text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="alex@gmail.com" disabled />
