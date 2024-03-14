@@ -11,13 +11,13 @@ const socialMediaLinks = {
 
 const Footer = () => {
   return (
-    <footer className="bg-white-100 text-black body-font w-full border-t border-gray-300">
+    <footer className="bg-white-100 text-black body-font w-full border-t border-gray-300  dark:focus:ring-gray-600">
       {/* <div className="container mx-auto mt-10 flex items-start justify-between w-full"> */}
       <div className="container px-5 mx-auto mt-5 flex flex-col lg:flex-row items-start justify-between w-full">
         <div className="mr-5 mb-5">
           <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
             <img src={Logo} alt="Logo" className="w-10 h-10" />
-            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Stockify</span>
+            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-black">Stockify</span>
           </a>
         </div>
         <div className="mr-5">
