@@ -14,6 +14,7 @@ import Analyze from './pages/Analyze';
 import Learn from './pages/Learn';
 import Profile from './pages/Profile';
 import NotFound404 from './pages/NotFound404';
+import teslaicon from './assets/teslaIcon.png'
 
 function App() {
   const stock={
