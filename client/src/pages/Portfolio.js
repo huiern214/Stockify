@@ -148,7 +148,7 @@ function AddTransactionButton() {
       </button>
 
       {modal && (
-        <div className="z-50 fixed inset-0 flex items-center justify-center h-screen">
+        <div className="z-[50] fixed inset-0 flex items-center justify-center h-screen">
         <div className="absolute inset-0 bg-black/80"></div>
           <div className="modal-content absolute h-5/6 w-1/3 bg-[#FFFFFF] overflow-y-auto rounded-lg">
             <div>
@@ -418,8 +418,8 @@ const Portfolio = () => {
   }
 
   return (
-    <div className="w-full h-full bg-white mb-[5%]">
-      <div className="ml-[10%] md:mr-[5%]">
+    <div className="container mx-auto md:px-6 mb-[5%]">
+      <div className="mx-[5%] md:mx-0">
         <p className="text-2xl font-semibold text-left mt-5 mb-10 text-black">
         Portfolio
         </p>
@@ -453,9 +453,9 @@ const Portfolio = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between mx-5">
+        <div className="flex items-center md:justify-between md:mx-5">
           <div class="hidden md:block"/>
-          <div className="flex items-center space-x-5 p-4">
+          <div className="flex items-center space-x-5 py-4 md:p-4">
             <DateSelector variation="from"/>
             <span className="mx-2"> - </span>
             <DateSelector variation="to" />
