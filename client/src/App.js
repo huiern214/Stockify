@@ -16,6 +16,30 @@ import Profile from './pages/Profile';
 import NotFound404 from './pages/NotFound404';
 
 function App() {
+  const stock={
+    'name':'Tesla Inc',
+    'symbol':'TSLA',
+    'price':178.9,
+    'imageUrl':teslaicon,
+    'changes':3.07,
+    'isIncreasing':true
+  }
+
+  const response={
+    "symbol":'TSLA',
+    "historical":[
+      {"date":"2024-01-01","price":10},
+      {"date":"2024-01-02","price":9},
+      {"date":"2024-01-03","price":12},
+      {"date":"2024-01-04","price":25},
+      {"date":"2024-01-05","price":12},
+      {"date":"2024-01-06","price":1},
+      {"date":"2024-01-07","price":4},
+      {"date":"2024-01-08","price":3},
+      {"date":"2024-01-09","price":15},
+      {"date":"2024-01-10","price":19},
+    ]
+  }
   return (
     <div className="App">
       <BrowserRouter>
