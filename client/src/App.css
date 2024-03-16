@@ -5,3 +5,16 @@
   background-position: center;
   min-height: 100vh;
 }
+
+.chart-container {
+  width: calc(33.33% - 10px); /* Adjust width as needed */
+  box-sizing: border-box;
+  border: 1px solid #ccc; /*Add border*/
+  padding: 10px; /* Add padding */
+  margin: 10px;
+  border-radius: 8px;
+}
+
+.fill-current {
+fill: currentColor;
+}
