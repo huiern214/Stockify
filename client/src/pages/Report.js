@@ -42,7 +42,7 @@ const sectionOptions = [
 
 function CustomizeButton() {
   return (
-    <button className="flex items-center p-2 border rounded-lg bg-[#0077B6] text-white hover:bg-[#0077B6]/80">
+    <button className="flex items-center p-2 border-2 border-[#0077B6] rounded-lg bg-white text-[#0077B6] hover:bg-[#0077B6]/20">
       Customize Sections
       <img src={Customize} alt="Customize Section" className="w-5 h-5 ml-2" />
     </button>
@@ -58,14 +58,20 @@ function GenerateButton() {
   )
 }
 
-// function ReportGrade({ grade }) {
-//   return ()
-// }
+function ReportGrade({ grade }) {
+  return (
+    <div className="m-5 flex justify-center items-center rounded-full h-16 w-20 text-center font-bold bg-gray-300">
+      Grade:
+      <br />
+      {grade}
+    </div>
+  )
+}
 
 function ReportSection({ sectionNo, sectionTitle, sectionDesc, sectionText }) {
   return(
     <div className="flex-1">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-center">
         <div className="mt-5 mx-5 text-lg font-bold text-center">
           {sectionNo}.0 {sectionTitle}
         </div>
@@ -81,32 +87,41 @@ function ReportSection({ sectionNo, sectionTitle, sectionDesc, sectionText }) {
 }
 
 const Report = () => {
-  const sectionText = "_____________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ ___________"
+  // const sectionText = 
+  // "__________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________ __________________________________________________________________________"
+  const sectionText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
   return (
     <div className="text-black body-font w-full mt-10 mb-20">
       <div className="ml-5 text-lg font-bold">
         Assessment Report
       </div>
-      <div className="flex items-center justify-between mx-5">
-        <div className="flex items-center">
-          <span className="mx-2"> From: </span>
-          <DateSelector variation="from"/>
-          <span className="mx-2"> To: </span>
-          <DateSelector variation="to"/>
-        </div>
-        <div className="flex items-center">
+      <div className="mx-5 p-5">
+        <div className="flex items-center justify-between">
           <CustomizeButton />
           <GenerateButton />
         </div>
-      </div>
-      <div className="flex flex-1 min-h-screen m-5 border border-black">
-        <div className="w-1/2 flex flex-col border border-blue-700">
-          <ReportSection sectionNo="1" sectionTitle={sectionOptions[0].sectionTitle} sectionDesc={sectionOptions[0].sectionDesc} sectionText={sectionText}/>
-          <ReportSection sectionNo="3" sectionTitle={sectionOptions[2].sectionTitle} sectionDesc={sectionOptions[2].sectionDesc} sectionText={sectionText}/>
-        </div>
-        <div className="w-1/2 flex flex-col border border-purple-700">
-          <ReportSection sectionNo="2" sectionTitle={sectionOptions[1].sectionTitle} sectionDesc={sectionOptions[1].sectionDesc} sectionText={sectionText}/>
-          <ReportSection sectionNo="4" sectionTitle={sectionOptions[3].sectionTitle} sectionDesc={sectionOptions[3].sectionDesc} sectionText={sectionText}/>
+        <div className="mt-3 h-auto border border-black">
+          <div className="mx-5 flex flex-1 justify-between">
+            <div className="flex items-center">
+              <span className="mx-2"> From: </span>
+              <DateSelector variation="from"/>
+              <span className="mx-2"> To: </span>
+              <DateSelector variation="to"/>
+            </div>
+            <div className="flex items-center">
+              <ReportGrade grade="A+" />
+            </div>
+          </div>
+          <div className="flex flex-1">
+            <div className="w-1/2 flex flex-col">
+              <ReportSection sectionNo="1" sectionTitle={sectionOptions[0].sectionTitle} sectionDesc={sectionOptions[0].sectionDesc} sectionText={sectionText}/>
+              <ReportSection sectionNo="3" sectionTitle={sectionOptions[2].sectionTitle} sectionDesc={sectionOptions[2].sectionDesc} sectionText={sectionText}/>
+            </div>
+            <div className="w-1/2 flex flex-col">
+              <ReportSection sectionNo="2" sectionTitle={sectionOptions[1].sectionTitle} sectionDesc={sectionOptions[1].sectionDesc} sectionText={sectionText}/>
+              <ReportSection sectionNo="4" sectionTitle={sectionOptions[3].sectionTitle} sectionDesc={sectionOptions[3].sectionDesc} sectionText={sectionText}/>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom'
 const Analyze = () => {
   const navigate = useNavigate();
   const handleSubmit = async(e) => {
-    navigate('/report', { replace: true })
+    navigate('/report', { replace: true });
+    window.scrollTo(0, 0)
   }
   return (
     <div>
