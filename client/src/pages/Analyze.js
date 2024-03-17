@@ -1,6 +1,6 @@
 import React from 'react'
 import '../App.css'
-import Report from './Report'
+import Sample from '../assets/Sample Assessment Report.png'
 import { useNavigate } from 'react-router-dom'
 
 const Analyze = () => {
@@ -27,7 +27,7 @@ const Analyze = () => {
         <div className="p-10 h-full w-5/12 float-left">
           <div className="h-full w-full flex justify-center items-center">
             <div>
-              <img src="https://via.placeholder.com/150" alt="preview" />
+              <img src={Sample} alt="preview" />
             </div>
           </div>
         </div>
@@ -38,7 +38,7 @@ const Analyze = () => {
           <p className="mb-10">
             your investment portfolio with ease. Our Portfolio Analyzer empowers you to take control of your finances and make informed decisions.
           </p>
-          <button className="p-5 rounded-xl bg-[#EC0000] text-white font-semibold hover:bg-[#EC0000]/80 hover:drop-shadow-md" onClick={handleSubmit}>GENERATE <br /> ASSESSMENT REPORT</button>
+          <button className="p-5 rounded-xl bg-[#EC0000] text-white font-semibold hover:bg-[#EC0000]/80 hover:drop-shadow-md animate-bounce" onClick={handleSubmit}>GENERATE <br /> ASSESSMENT REPORT</button>
         </div>
       </div>
     </div>
