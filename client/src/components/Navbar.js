@@ -1,6 +1,6 @@
 import React from 'react'
 import Logo from '../assets/Logo.png'
-import ProfilePhoto from '../assets/Profile photo.png'
+import ProfilePhoto from '../assets/profilePhoto.png'
 import { useState } from 'react';
 
 const Navbar = () => {

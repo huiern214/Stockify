@@ -1,4 +1,4 @@
-import {ReactComponent as SortUp} from '../assets/sort-up.svg'
+import {ReactComponent as SortUp} from '../../assets/sort-up.svg'
 
 
 function StockIcon({name,imageUrl,symbol,price,changes,isIncreasing}){

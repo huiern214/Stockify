@@ -70,9 +70,9 @@ const LineChart = () => {
   };
 
   return (
-    <div className="flex w-full h-full flex-col relative">
-      <span className="flex w-full h-fit pl-5 pt-2 mb-2">Performance</span>
-      <div className="relative w-full">
+    <div className="z-[10] flex w-full h-full flex-col">
+      <h2 className="mb-1 mt-5 text-xl pl-5 font-bold text-gray-700">Performance</h2>
+      <div className="relative w-full pl-5">
         <div className="flex w-full absolute top-2 right-2 z-10">
           <ul className="flex justify-between mx-auto w-3/4">
             <button className="mr-4">1D</button>
@@ -85,7 +85,7 @@ const LineChart = () => {
           </ul>
         </div>
       </div>
-      <div className="flex flex-grow pb-6 pl-8">
+      <div className="flex flex-grow pl-5 ml-2 mr-5 my-5">
         <canvas id="lineChart" />
       </div>
     </div>
