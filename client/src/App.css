@@ -5,3 +5,7 @@
   background-position: center;
   min-height: 100vh;
 }
+
+.fill-current {
+fill: currentColor;
+}
