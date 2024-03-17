@@ -7,13 +7,13 @@ import Footer from './components/Footer';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home/Home';
-import StockDetails from './pages/StockDetails';
 import News from './pages/News';
 import Portfolio from './pages/Portfolio';
 import Analyze from './pages/Analyze';
 import Learn from './pages/Learn';
 import Profile from './pages/Profile';
 import NotFound404 from './pages/NotFound404';
+import StockOverview from './pages/StockOverview/StockOverview';
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
 
           <Route element={<WithNavbar />}>
             <Route path="/" element={<Home />} />
-            <Route path="/stocks/:stockId" element={<StockDetails />} />
+            <Route path="/stocks/:stockId" element={<StockOverview />} />
             <Route path="/news" element={<News />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/analyze" element={<Analyze />} />
