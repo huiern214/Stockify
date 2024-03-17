@@ -1,11 +1,16 @@
 import React, { useEffect, useRef, useState }  from 'react'
 import Chart from 'chart.js/auto'
-import star from '../assets/star.svg';
+import star from '../../assets/star.svg';
 
 const TickerList = () => {
 
-    const chartRef = useRef(null);
-    const [chartInstance, setChartInstance] = useState(null);
+  const chartRef = useRef(null);
+  const [chartInstance, setChartInstance] = useState(null);
+  const [viewMore, setViewMore] = useState(false);
+
+  const toggleViewMore = () => {
+    setViewMore(!viewMore);
+  };
   
     useEffect(() => {
       const ctx = chartRef.current.getContext('2d');
@@ -81,47 +86,53 @@ const TickerList = () => {
 
   return (
     <div className="mt-4">
-      <table className="table-auto w-full mt-2">
-        <thead>
-          <tr>
-            <th className="px-4 py-2 border-t border-b">Ticker</th>
-            <th className="px-4 py-2 border-t border-b">Current Price</th>
-            <th className="px-4 py-2 border-t border-b">Change</th>
-            <th className="px-4 py-2 border-t border-b">Market Cap</th>
-            <th className="px-4 py-2 border-t border-b">Volume</th>
-            <th className="px-4 py-2 border-t border-b">Last 30 days</th>
-          </tr>
-          
-        </thead>
-        <tbody>
-          {/* Render your ticker data dynamically here */}
-          {/* Example row */}
-          <tr className='text-center'>
-            <td className="px-4 py-2 flex justify-center">
-                <button aria-label="Add to wishlist"> 
-                    <img src={star} alt='Add to wishlist' className='w-6 h-6 mr-2 text-yellow-500 transition-opacity duration-300 hover:opacity-80 fill-current'/>
-                </button>
-                <div className="flex flex-col">
-                    <span className="font-bold">AAPL</span>
-                    <span className="block text-gray-500">Apple</span>
-                </div>
-            </td>
-            <td className="px-4 py-2">$150.65</td>
-            <td className="px-4 py-2">
-            <div className="flex flex-col">
-                <span>55.7</span>
-                <span>+23.5%</span>
-            </div>
-            </td>
-            <td className="px-4 py-2">$2.5T</td>
-            <td className="px-4 py-2">10M</td>
-            <td className="px-4 py-2">
-                <canvas ref={chartRef} style={{ width: '200px', height: 'auto' }}></canvas>
-            </td>
-          </tr>
-          {/* Add more rows as needed */}
-        </tbody>
-      </table>
+      <div className="flex justify-between items-center mt-5 mb-4">
+        <h2 class="px-4 text-2xl font-bold text-gray-700">Market Analysis</h2>
+        <button onClick={ toggleViewMore } class="mt-1 text-primary dark:text-primary-400 text-sm underline"><strong>View {viewMore ? 'Less' : 'More'}</strong></button>
+      </div>
+      <div className="mt-4 overflow-x-auto">
+        <table className="table-auto w-full mt-2">
+          <thead>
+            <tr>
+              <th className="px-4 py-2 border-t border-b">Ticker</th>
+              <th className="px-4 py-2 border-t border-b">Current Price</th>
+              <th className="px-4 py-2 border-t border-b">Change</th>
+              <th className="px-4 py-2 border-t border-b">Market Cap</th>
+              <th className="px-4 py-2 border-t border-b">Volume</th>
+              <th className="px-4 py-2 border-t border-b">Last 30 days</th>
+            </tr>
+            
+          </thead>
+          <tbody>
+            {/* Render your ticker data dynamically here */}
+            {/* Example row */}
+            <tr className='text-center'>
+              <td className="px-4 py-2 flex justify-center">
+                  <button aria-label="Add to wishlist"> 
+                      <img src={star} alt='Add to wishlist' className='w-6 h-6 mr-2 text-yellow-500 transition-opacity duration-300 hover:opacity-80 fill-current'/>
+                  </button>
+                  <div className="flex flex-col">
+                      <span className="font-bold">AAPL</span>
+                      <span className="block text-gray-500">Apple</span>
+                  </div>
+              </td>
+              <td className="px-4 py-2">$150.65</td>
+              <td className="px-4 py-2">
+              <div className="flex flex-col">
+                  <span>55.7</span>
+                  <span>+23.5%</span>
+              </div>
+              </td>
+              <td className="px-4 py-2">$2.5T</td>
+              <td className="px-4 py-2">10M</td>
+              <td className="px-4 py-2">
+                  <canvas ref={chartRef} style={{ width: '200px', height: 'auto' }}></canvas>
+              </td>
+            </tr>
+            {/* Add more rows as needed */}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -6,7 +6,7 @@ import WithNavbar from './components/WithNavbar';
 import Footer from './components/Footer';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Home from './pages/Home';
+import Home from './pages/Home/Home';
 import StockDetails from './pages/StockDetails';
 import News from './pages/News';
 import Portfolio from './pages/Portfolio';

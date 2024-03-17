@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CanvasJSReact from '@canvasjs/react-charts';
 import Papa from 'papaparse';
+import { Chart } from 'chart.js';
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
