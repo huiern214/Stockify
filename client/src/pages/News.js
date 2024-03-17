@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Dropdown_blue from '../assets/Dropdown-blue.png'
 import Dropdown_white from '../assets/Dropdown-white.png'
+import Chat from '../components/Chat';
 
 function NewsCategoryDropdown() {
   const [isActive, setIsActive] = useState(false);
@@ -143,6 +144,7 @@ const News = () => {
       </div>
       <NewsButtons />
       <NewsFragment />
+      <Chat />
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import Customize from '../assets/Customize.png'
 import Generate from '../assets/Generate.png'
+import Chat from '../components/Chat';
 
 function DateSelector({ variation }) {
   const getDefaultDate = () => {
@@ -124,6 +125,7 @@ const Report = () => {
           </div>
         </div>
       </div>
+      <Chat />
     </div>
   )
 }
