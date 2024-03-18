@@ -291,7 +291,7 @@ function AddTransactionButton() {
               </div>
 
               <div className="my-6 mr-10 flex items-center justify-end gap-x-6">
-                <button type="button" className="rounded-md text-sm px-3 py-2 font-semibold leading-6 text-gray-900 hover:bg-gray-300"
+                <button type="button" className="rounded-md text-sm px-3 py-2 font-semibold leading-6 text-gray-900 hover:bg-gray-300 hover:border hover:border-black"
                 onClick={toggleModal}>
                   Cancel
                 </button>
