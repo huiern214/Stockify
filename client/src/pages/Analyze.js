@@ -2,7 +2,6 @@ import React from 'react'
 import '../App.css'
 import Sample from '../assets/Sample Assessment Report.png'
 import { useNavigate } from 'react-router-dom'
-import Chat from '../components/Chat'
 
 const Analyze = () => {
   const navigate = useNavigate();
@@ -42,7 +41,6 @@ const Analyze = () => {
           <button className="p-5 rounded-xl bg-[#EC0000] text-white font-semibold hover:bg-[#EC0000]/80 hover:drop-shadow-md animate-bounce" onClick={handleSubmit}>GENERATE <br /> ASSESSMENT REPORT</button>
         </div>
       </div>
-      <Chat />
     </div>
   )
 }

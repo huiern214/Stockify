@@ -4,7 +4,6 @@ import { Menu, Transition } from '@headlessui/react'
 import Filter from '../assets/Filter.png'
 import Close from '../assets/Close.png'
 import Plus from '../assets/Plus.png'
-import Chat from '../components/Chat'
 
 function FilterButton() {
   const filterOptions = [
@@ -377,7 +376,6 @@ const Portfolio = () => {
         <AddTransactionButton />
       </div>
       <PortfolioGrid />
-      <Chat />
     </div>
   )
 }
