@@ -12,7 +12,7 @@ function NewsCategoryDropdown() {
   }
 
   return (
-    <button className="flex items-center px-4 py-2 rounded-full border border-[#3066BE] text-[#3066BE] font-semibold hover:bg-[#3066BE]/50 active:bg-[#3066BE] active:text-white" onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
+    <button className="flex items-center px-4 py-2 rounded-full border border-primary text-primary font-semibold hover:bg-blue-600 active:bg-primary active:text-white" onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
       Category
       <img src={isActive? Dropdown_white : Dropdown_blue} alt="Choose Category" className="w-5 h-5 ml-2"/>
     </button>
@@ -27,10 +27,10 @@ function NewsButtons() {
 
   return (
     <div className="flex items-center w-auto mb-5">
-      <button onClick={handleToggle} className={`px-4 py-2 mr-2 rounded-full border border-[#3066BE] font-semibold ${selected ? 'bg-[#3066BE] text-white' : 'bg-white text-[#3066BE]'}`}>
+      <button onClick={handleToggle} className={`px-4 py-2 mr-2 rounded-full border border-primary font-semibold ${selected ? 'bg-primary text-white' : 'bg-white text-primary'}`}>
         All
       </button>
-      <button onClick={handleToggle} className={`px-4 py-2 mr-5 rounded-full border border-[#3066BE] font-semibold ${!selected ? 'bg-[#3066BE] text-white' : 'bg-white text-[#3066BE]'}`}>
+      <button onClick={handleToggle} className={`px-4 py-2 mr-2 rounded-full border border-primary font-semibold ${!selected ? 'bg-primary text-white' : 'bg-white text-primary'}`}>
         For You
       </button>
       <NewsCategoryDropdown />
@@ -40,8 +40,8 @@ function NewsButtons() {
 
 function NewsCard({ title, image, timestamp }) {
   return (
-    <div className="w-1/3 m-2 shadow-2xl border border-gray-300">
-      <div className="bg-cover bg-no-repeat relative overflow-hidden">
+    <div className="my-3 md:my-0 md:w-1/3 md:mr-5">
+      <div className="bg-cover bg-no-repeat relative overflow-hidden rounded-xl shadow-md hover:shadow-2xl">
         <img src={image} alt={title} className="w-full"/>
         <div className="absolute inset-0 flex flex-col justify-center items-center">
           <h2 className="text-white text-center text-lg font-extrabold">{title}</h2>
@@ -58,19 +58,24 @@ function NewsList({ title, image, source, timestamp, desc, url }) {
   }
 
   return (
-    <div className="flex items-center">
-      <img src={image} alt={title} className="w-1/3 m-5" />
-      <div className="w-2/3">
+    <div className="flex flex-col md:flex-row mt-5">
+      <img src={image} alt={title} className="md:w-1/5 h-fit my-5 rounded-xl" />
+      <div className="w-2/3 m-5 justify-start end">
         <h2 className="font-semibold text-lg mb-1">{title}</h2>
-        <p className="text-sm text-gray-600 mb-1">{source} ({timestamp})</p>
+        <p className="text-sm text-gray-600 my-1">{source} ({timestamp})</p>
         <p className="mb-2">{desc}</p>
-        <button onClick={handleReadMore} className="text-blue-500 font-semibold underline">Read more...</button>
+        <button onClick={handleReadMore} className="text-primary text-sm font-semibold underline">Read more...</button>
       </div>
     </div>
   )
 }
 
 function NewsFragment({ selected, category }) {
+  const [showMore, setShowMore] = useState(false);
+  const handleShowMore = () => {
+    setShowMore(!showMore)
+  }
+  
   const data = [
     {
       title: "Stock Market Boom",
@@ -88,6 +93,7 @@ function NewsFragment({ selected, category }) {
       timestamp: "5 minutes ago",
     },
   ]
+
   const item = [
     {
       title: "XRP: Should you be looking out for a price dip?",
@@ -114,20 +120,23 @@ function NewsFragment({ selected, category }) {
       url: "https://finbold.com/category/stocks-news/"
     }
   ]
+
   return (
     <div className="flex flex-col">
-      <div className="flex flex-1 flex-row">
+      <div className="flex flex-1 flex-col md:flex-row">
         {data.map((dataItem, index) => (
           <NewsCard title={dataItem.title} image={dataItem.image} timestamp={dataItem.timestamp}/>
         ))}
       </div>
-      <div className="flex flex-1 flex-col">
-        {item.map((newsItem, index) => (
+
+      <div className="flex flex-1 flex-col items-center">
+        {item.slice(0, showMore ? item.length : 1).map((newsItem, index) => (
           <div key={index}>
             <NewsList title={newsItem.title} image={newsItem.image} source={newsItem.source} timestamp={newsItem.timestamp} desc={newsItem.desc} url={newsItem.url}/>
             {index < item.length - 1 && <hr className="my-2 border-gray-300"/>}
           </div>
         ))}
+        <button onClick={handleShowMore} className="w-fit py-2 mt-5 text-primary font-semibold rounded-full hover:underline">Show More</button>
       </div>
     </div>
   )
@@ -136,13 +145,13 @@ function NewsFragment({ selected, category }) {
 const News = () => {
   return (
     <div className="container mx-auto md:px-6">
-      <div className="mx-[5%] md:mx-0">
-        <p className="text-2xl font-semibold text-left mt-5 mb-10 text-black">
+      <div className="mx-[5%] mb-5 md:mx-0">
+        <p className="text-2xl font-semibold text-left mb-10 text-black">
           News
         </p>
-      </div>
-      <NewsButtons />
-      <NewsFragment />
+        <NewsButtons />
+        <NewsFragment />
+      </div>    
     </div>
   )
 }
