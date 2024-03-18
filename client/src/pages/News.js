@@ -146,7 +146,7 @@ const News = () => {
   return (
     <div className="container mx-auto md:px-6">
       <div className="mx-[5%] mb-5 md:mx-0">
-        <p className="text-2xl font-semibold text-left mb-10 text-black">
+        <p className="text-2xl font-semibold mt-5 text-left mb-10 text-black">
           News
         </p>
         <NewsButtons />
