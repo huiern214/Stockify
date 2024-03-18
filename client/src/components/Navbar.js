@@ -1,6 +1,6 @@
 import React from 'react'
 import Logo from '../assets/Logo.png'
-import ProfilePhoto from '../assets/Profile photo.png'
+import ProfilePhoto from '../assets/profilePhoto.png'
 import { useState } from 'react';
 
 const Navbar = () => {
@@ -33,7 +33,7 @@ const Navbar = () => {
                         <span className="sr-only">Open user menu</span>
                         <img className="w-8 h-8 rounded-full" src={ProfilePhoto} alt="user"/>
                     </button>
-                    <div className={`${isUserMenuOpen ? "" : "hidden"} absolute right-0 mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`} id="user-dropdown">
+                    <div className={`${isUserMenuOpen ? "" : "hidden"} z-[100] absolute right-0 mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`} id="user-dropdown">
                         <div className="px-4 py-3">
                         <span className="block text-sm text-gray-900 dark:text-white">Alex</span>
                         <span className="block text-sm text-gray-500 truncate dark:text-gray-400">alex@gmail.com</span>
