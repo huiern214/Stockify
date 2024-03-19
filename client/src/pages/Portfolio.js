@@ -1,66 +1,136 @@
 import React, { Fragment } from 'react'
 import { useState } from 'react'
-import { Menu, Transition } from '@headlessui/react'
+import { Popover, Transition } from '@headlessui/react'
 import Filter from '../assets/Filter.png'
 import Close from '../assets/Close.png'
 import Plus from '../assets/Plus.png'
 import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa'
 
-// function FilterButton() {
-//   const filterOptions = [
-//     { id: 'AAPL', name: 'AAPL' },
-//     { id: 'MSFT', name: 'MSFT' },
-//     { id: 'TSLA', name: 'TSLA' },
-//   ]
+const filterOptions = [
+  { id: 'AAPL', ticker: 'AAPL', checked: false },
+  { id: 'MSFT', ticker: 'MSFT', checked: false },
+  { id: 'TSLA', ticker: 'TSLA', checked: false },
+  { id: 'GOOG', ticker: 'GOOG', checked: false },
+  { id: 'AMZN', ticker: 'AMZN', checked: false },
+  { id: 'NVDA', ticker: 'NVDA', checked: false },
+];
 
-//   return (
-//     <></>
-//     // <Menu as="div" className="flex items-center my-5 p-2 border border-black rounded-full hover:bg-gray-200">
-//     //   <div>
-//     //     <Menu.Button>
-//     //       <img src={Filter} alt="Filter" className="w-5 h-5 mr-2" />
-//     //       Filter
-//     //     </Menu.Button>
-//     //   </div>
+const oriWatchlistItems = [
+  {
+    Ticker: 'AAPL',
+    Price: 'XXXX.XX',
+    Holdings: 'XXXX.XX',
+    Shares: '100 Shares',
+    RealizedPL: '10000.00 (10.00%)',
+    UnrealizedPL: '20000.00 (20.00%)'
+  },
+  {
+    Ticker: 'AAPL',
+    Price: 'XXXX.XX',
+    Holdings: 'XXXX.XX',
+    Shares: '100 Shares',
+    RealizedPL: '10000.00 (10.00%)',
+    UnrealizedPL: '20000.00 (20.00%)'
+  },
+  {
+    Ticker: 'AAPL',
+    Price: 'XXXX.XX',
+    Holdings: 'XXXX.XX',
+    Shares: '100 Shares',
+    RealizedPL: '10000.00 (10.00%)',
+    UnrealizedPL: '20000.00 (20.00%)'
+  },
+  {
+    Ticker: 'AAPL',
+    Price: 'XXXX.XX',
+    Holdings: 'XXXX.XX',
+    Shares: '100 Shares',
+    RealizedPL: '10000.00 (10.00%)',
+    UnrealizedPL: '20000.00 (20.00%)'
+  }
+];
 
-//     //   <Transition
-//     //     as={Fragment}
-//     //     enter="transition ease-out duration-100"
-//     //     enterFrom="transform opacity-0 scale-95"
-//     //     enterTo="transform opacity-100 scale-100"
-//     //     leave="transition ease-in duration-75"
-//     //     leaveFrom="transform opacity-100 scale-100"
-//     //     leaveTo="transform opacity-0 scale-95"
-//     //     >
-//     //       <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-//     //         <div className="py-1">
-//     //           {filterOptions.map((option) => (
-//     //             <Menu.Item key={option.id}>
-//     //               {({ active }) => (
-//     //                 <div className="relative flex gap-x-3">
-//     //                   <div className="flex h-6 items-center">
-//     //                     <input
-//     //                       id={option.id}
-//     //                       name={option.id}
-//     //                       type="checkbox"
-//     //                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-blue-500"
-//     //                     />
-//     //                   </div>
-//     //                   <div className="text-sm leading-6">
-//     //                     <label htmlFor={option.id} className="font-medium text-gray-900">
-//     //                       {option.label}
-//     //                     </label>
-//     //                   </div>
-//     //                 </div>
-//     //               )}
-//     //             </Menu.Item>
-//     //           ))}
-//     //         </div>
-//     //       </Menu.Items>
-//     //     </Transition>
-//     // </Menu>
-//   )
-// }
+const oriTransactionItems = [
+  {
+    Type: 'Sell',
+    Ticker: 'ZZZZ',
+    Date: '10/03/2024',
+    Quantity: '2000',
+    PricePerShare: 'XXXX.XX',
+    Fees: 'XX.XX',
+    Notes: 'XXXXXXXXXXXX'
+  },
+  {
+    Type: 'Buy',
+    Ticker: 'AAPL',
+    Date: '11/03/2024',
+    Quantity: '2000',
+    PricePerShare: 'XXXX.XX',
+    Fees: 'XX.XX',
+    Notes: 'XXXXXXXXXXXX'
+  },
+  {
+    Type: 'Sell',
+    Ticker: 'TSLA',
+    Date: '9/03/2024',
+    Quantity: '2000',
+    PricePerShare: 'XXXX.XX',
+    Fees: 'XX.XX',
+    Notes: 'XXXXXXXXXXXX'
+  },
+  {
+    Type: 'Buy',
+    Ticker: 'MSFT',
+    Date: '10/03/2024',
+    Quantity: '2000',
+    PricePerShare: 'XXXX.XX',
+    Fees: 'XX.XX',
+    Notes: 'XXXXXXXXXXXX'
+  },
+  {
+    Type: 'Buy',
+    Ticker: 'NVDA',
+    Date: '10/03/2024',
+    Quantity: '2000',
+    PricePerShare: 'XXXX.XX',
+    Fees: 'XX.XX',
+    Notes: 'XXXXXXXXXXXX'
+  }
+];
+
+function FilterButton({ optionsState, handleCheckboxChange }) {
+  return (
+    <Popover className="relative">
+      <Popover.Button className="inline-flex items-center p-2 rounded-2xl hover:bg-gray-200 border border-black">
+        <img src={Filter} alt="Filter" className="w-5 h-5 mr-2"/>
+        Filter
+      </Popover.Button>
+      <Transition
+        as={Fragment}
+        enter="transition ease-out duration-200"
+        enterFrom="opacity-0 translate-y-1"
+        enterTo="opacity-100 translate-y-0"
+        leave="transition ease-in duration-150"
+        leaveFrom="opacity-100 translate-y-0"
+        leaveTo="opacity-0 translate-y-1"
+      >
+        <Popover.Panel className="mt-1 absolute z-10 flex w-auto max-w-max">
+          <div className="w-auto flex-auto overflow-hidden rounded-2xl bg-white text-sm leading-loose shadow-lg ring-1 ring-gray-900/50">
+            <div className="p-4">
+              {
+              optionsState.map((option) => (
+                <div className="flex items-center">
+                  <input type="checkbox" id={option.id} className="rounded text-blue-500 focus:ring-blue-500" defaultChecked={option.checked} onChange={() => handleCheckboxChange(option.id)}/>
+                  <label className="ml-2">{option.ticker}</label>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Popover.Panel>
+      </Transition>
+    </Popover>
+  )
+}
 
 function DateSelector({ variation }) {
   const getDefaultDate = () => {
@@ -93,11 +163,11 @@ function DateSelector({ variation }) {
   )
 }
 
-function AppliedFilter({text = "None"}) {
+function AppliedFilter({ ticker = "None", handleDeleteFilter}) {
   return (
-  <button className="flex items-center mx-1 p-2 rounded-full bg-deep_blue text-white">
-    <b>{text}</b>
-    {text !== "None" && (
+  <button className="flex items-center mx-1 p-2 rounded-full bg-deep_blue text-white hover:bg-blue-900" onClick={ticker !== "None" ? handleDeleteFilter : null}>
+    <b>{ticker}</b>
+    {ticker !== "None" && (
     <div>
       <img src={Close} alt="Close" className="ml-2 w-5 h-5" />
     </div>
@@ -128,7 +198,67 @@ function WatchlistButton({ isActive, onClick }) {
   );
 }
 
-function AddTransactionButton() {
+function AddStockButton({ handleAddStock }) {
+  const [modal, setModal] = useState(false);
+  const toggleModal = () => setModal(!modal);
+
+  return (
+    <div className='max-w-screen-xl flex flex-wrap p-4 justify-between items-center'>
+      <button onClick={toggleModal} className="flex p-2 bg-primary text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <p className="hidden md:inline mr-2">Add Stock</p>
+        <img src={Plus} alt="Add Stock" className="w-5 h-5" />
+      </button>
+
+      {modal && (
+        <div className="z-[50] fixed inset-0 flex items-center justify-center h-screen">
+        <div className="absolute inset-0 bg-black/80"></div>
+          <div className="modal-content absolute h-auto w-auto bg-[#FFFFFF] overflow-y-auto rounded-lg">
+            <div>
+              <h2 className="mt-10 ml-10 text-base font-semibold leading-7 text-gray-900">Add Stock</h2>
+
+              <div className="mt-5 ml-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                <div className="sm:col-span-4">
+                  <label htmlFor="ticker" className="block text-sm font-medium leading-6 text-gray-900">
+                    Ticker
+                  </label>
+                  <div className="mt-2">
+                    <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500 sm:max-w-md">
+                      <input
+                        type="text"
+                        name="ticker"
+                        id="ticker"
+                        autoComplete="ticker"
+                        className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0  sm:text-sm   sm:leading-6"
+                        placeholder="STKF"
+                        maxLength="5"
+                        onInput={(e) => e.target.value = e.target.value.toUpperCase()}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="my-6 mr-10 flex items-center justify-end gap-x-6">
+                <button type="button" className="rounded-md text-sm px-3 py-2 font-semibold leading-6 text-gray-900 hover:bg-gray-300 hover:border hover:border-black"
+                onClick={toggleModal}>
+                  Cancel
+                </button>
+                <button
+                  className="rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onClick={toggleModal}
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+      </div>
+      )}
+    </div>
+  )
+}
+
+function AddTransactionButton({ handleAddTransaction }) {
   const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
 
@@ -170,8 +300,8 @@ function AddTransactionButton() {
                         id="ticker"
                         autoComplete="ticker"
                         className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0  sm:text-sm   sm:leading-6"
-                        placeholder="XXXX"
-                        maxLength="4"
+                        placeholder="STKF"
+                        maxLength="5"
                         onInput={(e) => e.target.value = e.target.value.toUpperCase()}
                       />
                     </div>
@@ -310,7 +440,7 @@ function AddTransactionButton() {
   )
 }
 
-function TransactionTable() {
+function TransactionTable({ transactionItems }) {
   return (
     <div class="overflow-x-auto flex flex-1 mx-3 shadow-md sm:rounded-lg">
       <table class="table-auto w-full text-sm text-right rtl:text-right text-gray-500 dark:text-gray-400">
@@ -327,25 +457,28 @@ function TransactionTable() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="py-2">Sell</td>
-            <td className="py-2">AAPL</td>
-            <td className="py-2">10/03/2024</td>
-            <td className="py-2">2000</td>
-            <td className="py-2">XXXX.XX</td>
-            <td className="py-2">XX.XX</td>
-            <td className="py-2">
-              <div className="overflow-hidden">XXXXXXXXXXXX</div>
-            </td>
-            <td className="px-1 flex py-2 justify-center space-x-3">
-              <button onClick={() => console.log('Edit')} className="p-2 text-primary hover:text-blue-600 focus:ring-blue-500">
-                <FaEdit className="text-2xl" />
-              </button>
-              <button onClick={() => console.log('Delete')} className="p-2 text-red-600 hover:text-red-500">
-                  <FaTrash className="text-2xl" />
-              </button>
-            </td>
-          </tr>
+          {
+          transactionItems.map((item, index) => (
+            <tr>
+              <td className="py-2">{item.Type}</td>
+              <td className="py-2">{item.Ticker}</td>
+              <td className="py-2">{item.Date}</td>
+              <td className="py-2">{item.Quantity}</td>
+              <td className="py-2">{item.PricePerShare}</td>
+              <td className="py-2">{item.Fees}</td>
+              <td className="py-2">
+                <div className="overflow-hidden">{item.Notes}</div>
+              </td>
+              <td className="px-1 flex py-2 justify-center space-x-3">
+                <button onClick={() => console.log('Edit')} className="p-2 text-primary hover:text-blue-600 focus:ring-blue-500">
+                  <FaEdit className="text-2xl" />
+                </button>
+                <button onClick={() => console.log('Delete')} className="p-2 text-red-600 hover:text-red-500">
+                    <FaTrash className="text-2xl" />
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
@@ -353,7 +486,7 @@ function TransactionTable() {
 }
 
 // Ticker Price Change % Holdings Realized P/L Unrealized P/L
-function WatchlistTable() {
+function WatchlistTable({ watchlistItems }) {
   return (
     <div class="overflow-x-auto flex flex-1 mx-3 shadow-md sm:rounded-lg">
       <table class="table-auto w-full text-sm text-right rtl:text-right text-gray-500 dark:text-gray-400">
@@ -368,24 +501,28 @@ function WatchlistTable() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="py-2">AAPL</td>
-            <td className="py-2">XXXX.XX</td>
-            <td className="py-2">
-              <div className="whitespace-nowrap">XXXX.XX</div>
-              <div className="text-xs">100 Shares</div>
-            </td>
-            <td className="py-2">10000.00 (10.00%)</td>
-            <td className="py-2">20000.00 (20.00%)</td>
-            <td className="px-1 flex py-2 justify-center space-x-3">
-              <button onClick={() => console.log('Add Transaction')} className="p-2 text-primary hover:text-blue-600 focus:ring-blue-500">
-                <FaPlus className="text-2xl" />
-              </button>
-              <button onClick={() => console.log('Delete')} className="p-2 text-red-600 hover:text-red-500">
-                  <FaTrash className="text-2xl" />
-              </button>
-            </td>
-          </tr>
+          {
+            watchlistItems.map((item, index) => (
+              <tr>
+                <td className="py-2">{item.Ticker}</td>
+                <td className="py-2">{item.Price}</td>
+                <td className="py-2">
+                  <div className="whitespace-nowrap">{item.Holdings}</div>
+                  <div className="text-xs">{item.Shares}</div>
+                </td>
+                <td className="py-2">{item.RealizedPL}</td>
+                <td className="py-2">{item.UnrealizedPL}</td>
+                <td className="px-1 flex py-2 justify-center space-x-3">
+                  <button onClick={() => console.log('Add Transaction')} className="p-2 text-primary hover:text-blue-600 focus:ring-blue-500">
+                    <FaPlus className="text-2xl" />
+                  </button>
+                  <button onClick={() => console.log('Delete')} className="p-2 text-red-600 hover:text-red-500">
+                    <FaTrash className="text-2xl" />
+                  </button>
+                </td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>
@@ -407,6 +544,56 @@ const Portfolio = () => {
     if (value > 0) return 'text-green-500';
     if (value < 0) return 'text-red-500';
     return 'text-black';
+  }
+
+  const [optionsState, setOptionsState] = useState(filterOptions);
+  const handleCheckboxChange = (id) => {
+    setOptionsState(prevOptions => 
+      prevOptions.map(option => 
+        option.id === id ? { ...option, checked: !option.checked } : option))
+  }
+  const handleDeleteFilter = (id) => {
+    setOptionsState(prevOptions =>
+      prevOptions.map(option =>
+        option.id === id ? { ...option, checked: false } : option))
+  }
+
+  const [watchlistItems, setWatchlistItems] = useState(oriWatchlistItems);
+  const addWatchlist = (newItem) => {
+    setWatchlistItems(prevItems => [...prevItems, newItem]);
+  }
+  const editWatchlist = (index, updatedItem) => {
+    setWatchlistItems(prevItems => {
+      const updatedItems = [...prevItems];
+      updatedItems[index] = updatedItem;
+      return updatedItems;
+    })
+  }
+  const removeWatchlist = (index) => {
+    setWatchlistItems(prevItems => {
+      const updatedItems = [...prevItems];
+      updatedItems.splice(index, 1);
+      return updatedItems;
+    })
+  }
+
+  const [transactionItems, setTransactionItems] = useState(oriTransactionItems);
+  const addTransaction = (newItem) => {
+    setTransactionItems(prevItems => [...prevItems, newItem]);
+  }
+  const editTransaction = (index, updatedItem) => {
+    setTransactionItems(prevItems => {
+      const updatedItems = [...prevItems];
+      updatedItems[index] = updatedItem;
+      return updatedItems;
+    })
+  }
+  const removeTransaction = (index) => {
+    setWatchlistItems(prevItems => {
+      const updatedItems = [...prevItems];
+      updatedItems.splice(index, 1);
+      return updatedItems;
+    })
   }
 
   const [transactionActive, setTransactionActive] = useState(null);
@@ -454,6 +641,7 @@ const Portfolio = () => {
         </div>
 
         <div className="flex items-center md:justify-between md:mx-5">
+          <FilterButton optionsState={optionsState} handleCheckboxChange={handleCheckboxChange}/>
           <div class="hidden md:block"/>
           <div className="flex items-center space-x-5 py-4 md:p-4">
             <DateSelector variation="from"/>
@@ -464,9 +652,18 @@ const Portfolio = () => {
 
         <div className="ml-5 mb-3 flex items-center">
           <span className="mr-3">Applied Filters:</span>
+          {
+            optionsState.filter(option => option.checked).length > 0 ? (
+            optionsState.filter(option => option.checked).map(option => (
+            <AppliedFilter
+              key={option.id}
+              ticker={option.ticker}
+              handleDeleteFilter={() => handleDeleteFilter(option.id)}
+            />
+          ))
+        ) : (
           <AppliedFilter />
-          <AppliedFilter text="AAPL"/>
-          <AppliedFilter text="TSLA"/>
+        )}
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-between mx-5">
@@ -522,13 +719,14 @@ const Portfolio = () => {
                 </span>
               </button>
             </div>
-          <AddTransactionButton />
+          {watchlistActive && <AddStockButton handleAddStock={addWatchlist}/>}
+          {transactionActive && <AddTransactionButton handleAddTransaction={addTransaction}/>}
         </div>
 
         </div>
 
-        {transactionActive && <TransactionTable />}
-        {watchlistActive && <WatchlistTable />}
+        {watchlistActive && <WatchlistTable watchlistItems={watchlistItems}/>}
+        {transactionActive && <TransactionTable transactionItems={transactionItems}/>}
       </div>
     </div>
   )
