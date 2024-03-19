@@ -4,7 +4,7 @@ import {ReactComponent as SortUp} from '../../assets/sort-up.svg'
 function StockIcon({name,imageUrl,symbol,price,changes,isIncreasing}){
     //className='fixed top-10 left-10 flex items-center'
     return(
-        <div className='absolute flex items-center top-10 left-10 w-56 h-36'>
+        <div className='absolute flex items-center top-6 left-10 w-56 h-36'>
             <img className='h-full w-28' src={imageUrl} alt={name}/>
             <div className='flex flex-col ml-5'>
                 <span className='font-normal text-xl' >{symbol}</span>

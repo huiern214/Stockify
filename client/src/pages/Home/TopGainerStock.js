@@ -16,7 +16,7 @@ class TopGainerStocks extends Component {
     componentDidMount() {
         // Make an API request to fetch all top gainer stock data
         axios
-            .get('https://financialmodelingprep.com/api/v3/stock_market/gainers?apikey=zzIsIQczVCtNjvqK3QSNXkzW0T4fg3XB')
+            .get('https://financialmodelingprep.com/api/v3/stock_market/gainers?apikey=vlosml6TntFhwyJjPgOGcZ90pqLbsIvb')
             .then(response => {
                 const topGainersData = response.data;
                 const sortedTopGainers = topGainersData.sort((a, b) => b.changesPercentage - a.changesPercentage);
