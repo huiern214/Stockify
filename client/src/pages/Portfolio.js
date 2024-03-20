@@ -18,83 +18,89 @@ const filterOptions = [
 const oriWatchlistItems = [
   {
     Ticker: 'AAPL',
-    Price: 'XXXX.XX',
-    Holdings: 'XXXX.XX',
-    Shares: '100 Shares',
-    RealizedPL: '10000.00 (10.00%)',
-    UnrealizedPL: '20000.00 (20.00%)'
+    Price: 165.25,
+    Holdings: 20000.00,
+    Shares: '120 Shares',
+    RealizedPL: { amount: 2500.00, percentage: 10.00 },
+    UnrealizedPL: { amount: 3500.00, percentage: 20.00 }
   },
   {
-    Ticker: 'AAPL',
-    Price: 'XXXX.XX',
-    Holdings: 'XXXX.XX',
-    Shares: '100 Shares',
-    RealizedPL: '10000.00 (10.00%)',
-    UnrealizedPL: '20000.00 (20.00%)'
+    Ticker: 'GOOGL',
+    Price: 2495.50,
+    Holdings: 30000.00,
+    Shares: '15 Shares',
+    RealizedPL: { amount: 1800.00, percentage: 8.00 },
+    UnrealizedPL: { amount: 5000.00, percentage: 25.00 }
   },
   {
-    Ticker: 'AAPL',
-    Price: 'XXXX.XX',
-    Holdings: 'XXXX.XX',
-    Shares: '100 Shares',
-    RealizedPL: '10000.00 (10.00%)',
-    UnrealizedPL: '20000.00 (20.00%)'
+    Ticker: 'TSLA',
+    Price: 700.80,
+    Holdings: 50000.00,
+    Shares: '75 Shares',
+    RealizedPL: { amount: 10000.00, percentage: 15.00 },
+    UnrealizedPL: { amount: 8000.00, percentage: 10.00 }
   },
   {
-    Ticker: 'AAPL',
-    Price: 'XXXX.XX',
-    Holdings: 'XXXX.XX',
-    Shares: '100 Shares',
-    RealizedPL: '10000.00 (10.00%)',
-    UnrealizedPL: '20000.00 (20.00%)'
+    Ticker: 'AMZN',
+    Price: 3125.75,
+    Holdings: 40000.00,
+    Shares: '10 Shares',
+    RealizedPL: { amount: 3500.00, percentage: 12.50 },
+    UnrealizedPL: { amount: 6000.00, percentage: 15.00 }
+  },
+  {
+    Ticker: 'MSFT',
+    Price: 250.00,
+    Holdings: 15000.00,
+    Shares: '60 Shares',
+    RealizedPL: { amount: 2000.00, percentage: 13.33 },
+    UnrealizedPL: { amount: 4000.00, percentage: 20.00 }
   }
 ];
 
 const oriTransactionItems = [
   {
     Type: 'Sell',
-    Ticker: 'ZZZZ',
+    Ticker: 'TSLA',
+    Date: '9/03/2024',
+    Quantity: 1000,
+    PricePerShare: 800.75,
+    Fees: 30.00,
+    Notes: 'Sold 1000 shares of TSLA due to recent price volatility.'
+  },
+  {
+    Type: 'Sell',
+    Ticker: 'MSFT',
     Date: '10/03/2024',
-    Quantity: '2000',
-    PricePerShare: 'XXXX.XX',
-    Fees: 'XX.XX',
-    Notes: 'XXXXXXXXXXXX'
+    Quantity: 3000,
+    PricePerShare: 250.50,
+    Fees: 40.00,
+    Notes: 'Sold 3000 shares of MSFT to take profits.'
+  },
+  {
+    Type: 'Sell',
+    Ticker: 'AAPL',
+    Date: '10/03/2024',
+    Quantity: 2000,
+    PricePerShare: 150.25,
+    Fees: 25.00
   },
   {
     Type: 'Buy',
     Ticker: 'AAPL',
     Date: '11/03/2024',
-    Quantity: '2000',
-    PricePerShare: 'XXXX.XX',
-    Fees: 'XX.XX',
-    Notes: 'XXXXXXXXXXXX'
-  },
-  {
-    Type: 'Sell',
-    Ticker: 'TSLA',
-    Date: '9/03/2024',
-    Quantity: '2000',
-    PricePerShare: 'XXXX.XX',
-    Fees: 'XX.XX',
-    Notes: 'XXXXXXXXXXXX'
-  },
-  {
-    Type: 'Buy',
-    Ticker: 'MSFT',
-    Date: '10/03/2024',
-    Quantity: '2000',
-    PricePerShare: 'XXXX.XX',
-    Fees: 'XX.XX',
-    Notes: 'XXXXXXXXXXXX'
+    Quantity: 1500,
+    PricePerShare: 155.50,
+    Fees: 20.00
   },
   {
     Type: 'Buy',
     Ticker: 'NVDA',
-    Date: '10/03/2024',
-    Quantity: '2000',
-    PricePerShare: 'XXXX.XX',
-    Fees: 'XX.XX',
-    Notes: 'XXXXXXXXXXXX'
+    Date: '11/03/2024',
+    Quantity: 500,
+    PricePerShare: 350.80,
+    Fees: 15.00,
+    Notes: 'Bought 500 shares of NVDA for long-term investment.'
   }
 ];
 
@@ -441,24 +447,45 @@ function AddTransactionButton({ handleAddTransaction }) {
 }
 
 function TransactionTable({ transactionItems }) {
+  const [sortedItems, setSortedItems] = useState(transactionItems);
+  const [sortConfig, setSortConfig] = useState(null);
+
+  const requestSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    const sorted = [...sortedItems].sort((a, b) => {
+      let comparison = 0;
+      if (key === 'Date') {
+        comparison = new Date(a[key]) - new Date(b[key]);
+      } else {
+        comparison = a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0;
+      }
+      return direction === 'descending' ? comparison * -1 : comparison;
+    });
+    setSortedItems(sorted);
+    setSortConfig({ key, direction });
+  }
+
   return (
     <div class="overflow-x-auto flex flex-1 mx-3 shadow-md sm:rounded-lg">
       <table class="table-auto w-full text-sm text-right rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th className="px-1 py-3">Type</th>
-            <th className="px-1 py-3">Ticker</th>
-            <th className="px-1 py-3">Date</th>
-            <th className="px-1 py-3">Quantity</th>
-            <th className="px-1 py-3">Price / Share</th>
-            <th className="px-1 py-3">Fees</th>
+            <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Type')}>Type</th>
+            <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Ticker')}>Ticker</th>
+            <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Date')}>Date</th>
+            <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Quantity')}>Quantity</th>
+            <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('PricePerShare')}>Price / Share</th>
+            <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Fees')}>Fees</th>
             <th className="px-1 py-3">Notes</th>
             <th className="px-1 py-3 text-center">Action</th>
           </tr>
         </thead>
         <tbody>
           {
-          transactionItems.map((item, index) => (
+          sortedItems.map((item, index) => (
             <tr>
               <td className="py-2">{item.Type}</td>
               <td className="py-2">{item.Ticker}</td>
@@ -487,22 +514,47 @@ function TransactionTable({ transactionItems }) {
 
 // Ticker Price Change % Holdings Realized P/L Unrealized P/L
 function WatchlistTable({ watchlistItems }) {
+  const [sortedItems, setSortedItems] = useState(watchlistItems);
+  const [sortConfig, setSortConfig] = useState(null);
+
+  const requestSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    const sorted = [...sortedItems].sort((a, b) => {
+      let comparison = 0;
+      if (key === 'Ticker') {
+        comparison = a[key].localeCompare(b[key]);
+      }
+      else if (key === 'RealizedPL' || key === 'UnrealizedPL') {
+        comparison = a[key].amount - b[key].amount;
+      }
+      else {
+        comparison = a[key] - b[key];
+      }
+      return direction === 'descending' ? comparison * -1 : comparison;
+    });
+    setSortedItems(sorted);
+    setSortConfig({ key, direction });
+  }
+
   return (
     <div class="overflow-x-auto flex flex-1 mx-3 shadow-md sm:rounded-lg">
       <table class="table-auto w-full text-sm text-right rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th className="px-1 py-3">Ticker</th>
-            <th className="px-1 py-3">Price</th>
-            <th className="px-1 py-3">Holdings</th>
-            <th className="px-1 py-3">Realized P/L</th>
-            <th className="px-1 py-3">Unrealized P/L</th>
+            <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Ticker')}>Ticker</th>
+            <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Price')}>Price</th>
+            <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Holdings')}>Holdings</th>
+            <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('RealizedPL')}>Realized P/L</th>
+            <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('UnrealizedPL')}>Unrealized P/L</th>
             <th className="px-1 py-3 text-center">Action</th>
           </tr>
         </thead>
         <tbody>
           {
-            watchlistItems.map((item, index) => (
+            sortedItems.map((item, index) => (
               <tr>
                 <td className="py-2">{item.Ticker}</td>
                 <td className="py-2">{item.Price}</td>
@@ -510,8 +562,8 @@ function WatchlistTable({ watchlistItems }) {
                   <div className="whitespace-nowrap">{item.Holdings}</div>
                   <div className="text-xs">{item.Shares}</div>
                 </td>
-                <td className="py-2">{item.RealizedPL}</td>
-                <td className="py-2">{item.UnrealizedPL}</td>
+                <td className="py-2">{`${item.RealizedPL.amount} (${item.RealizedPL.percentage}%)`}</td>
+                <td className="py-2">{`${item.UnrealizedPL.amount} (${item.UnrealizedPL.percentage}%)`}</td>
                 <td className="px-1 flex py-2 justify-center space-x-3">
                   <button onClick={() => console.log('Add Transaction')} className="p-2 text-primary hover:text-blue-600 focus:ring-blue-500">
                     <FaPlus className="text-2xl" />
