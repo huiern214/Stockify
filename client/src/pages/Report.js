@@ -35,7 +35,7 @@ function DateSelector({ variation }) {
   )
 }
 
-const sectionOptions = [
+const sections = [
   {
     id: 1,
     sectionTitle: "Portfolio Overview",
@@ -98,7 +98,7 @@ const sectionOptions = [
   }
 ]
 
-function CustomizeButton({ selectedSections, handleCheckboxChange }) {
+function CustomizeButton({ sectionOptions, handleCheckboxChange }) {
   return (
     <Popover className="relative">
       <Popover.Button className="flex items-center p-2 border-2 border-primary rounded-lg bg-white text-primary hover:bg-primary/20">
@@ -118,7 +118,7 @@ function CustomizeButton({ selectedSections, handleCheckboxChange }) {
           <div className="w-auto flex-auto overflow-hidden rounded-2xl bg-white text-sm leading-loose shadow-lg ring-1 ring-gray-900/50">
             <div className="p-2">
               {
-              selectedSections.map((section) => (
+              sectionOptions.map((section) => (
                 <div key={section.id} className="group relative flex gap-x-6 rounded-lg p-3 hover:bg-gray-50">
                   <div className="items-center flex flex-none justify-center">
                     <input type="checkbox" id={section.id} className="rounded text-blue-500 focus:ring-blue-500" defaultChecked={section.checked} onChange={() => handleCheckboxChange(section.id)}/>
@@ -158,12 +158,12 @@ function ReportGrade({ grade }) {
   )
 }
 
-function ReportSection({ sectionNo, sectionTitle, sectionDesc, sectionText }) {
+function ReportSection({ sectionTitle, sectionDesc, sectionText }) {
   return(
     <div className="flex-1 border rounded-lg m-5 shadow-md">
       <div className="flex items-center justify-center">
         <div className="mt-5 mx-5 text-lg font-bold text-center">
-          {sectionNo}.0 {sectionTitle}
+          {sectionTitle}
         </div>
       </div>
       <div className="text-sm text-center mx-2">
@@ -177,9 +177,9 @@ function ReportSection({ sectionNo, sectionTitle, sectionDesc, sectionText }) {
 }
 
 const Report = () => {
-  const [selectedSections, setSelectedSections] = useState(sectionOptions);
+  const [sectionOptions, setSectionOptions] = useState(sections);
   const handleCheckboxChange = (id) => {
-    setSelectedSections(prevSections => 
+    setSectionOptions(prevSections => 
       prevSections.map(section => 
         section.id === id ? { ...section, checked: !section.checked } : section))
   }
@@ -207,7 +207,7 @@ const Report = () => {
       </div>
       <div className="mx-5 p-5">
         <div className="flex items-center justify-between">
-          <CustomizeButton selectedSections={selectedSections} handleCheckboxChange={handleCheckboxChange}/>
+          <CustomizeButton sectionOptions={sectionOptions} handleCheckboxChange={handleCheckboxChange}/>
           <GenerateButton />
         </div>
         <div className="mt-3 h-auto border rounded-lg shadow-2xl">
@@ -254,29 +254,44 @@ const Report = () => {
           </div>
           <div className="flex flex-col">
             <h2 className="mx-5 mt-8 text-xl font-bold mb-1">Analysis Details</h2>
-            {selectedSections.filter(section => section.checked).length > 0 && (
-              <div className="flex flex-col">
-                {[...Array(Math.ceil(selectedSections.filter(section => section.checked).length / 2))].map((_, rowIndex) => (
-                  <div key={rowIndex} className="flex flex-row">
-                    {[0, 1].map(colIndex => {
-                      const sectionIndex = rowIndex * 2 + colIndex;
-                      const section = selectedSections.find(section => section.checked && sectionIndex === section.id - 1);
-                      return (
-                        section && 
-                        <div key={section.id} className="flex-1">
-                          <ReportSection
-                            sectionNo={section.id}
-                            sectionTitle={section.sectionTitle}
-                            sectionDesc={section.sectionDesc}
-                            sectionText={sectionText}
-                          />
-                        </div>
-                      );
-                    })}
+            {(() => {
+              const selectedSections = sectionOptions.filter(section => section.checked);
+              const itemCount = selectedSections.length;
+              const numRows = Math.ceil(itemCount / 2);
+              selectedSections.forEach((section, index) => {
+                const rowIndex = Math.floor(index / 2);
+                const colIndex = index % 2;
+                section.rowIndex = rowIndex;
+                section.colIndex = colIndex;
+              })
+              
+              const rows = [];
+              for (let rowIndex=0; rowIndex < numRows; rowIndex++){
+                const columns = [];
+                for (let colIndex=0; colIndex < 2; colIndex++){
+                  const section = selectedSections[rowIndex * 2 + colIndex];
+                  columns.push(
+                    <div key={colIndex} className="flex-1">
+                      {section && (
+                        <ReportSection
+                          key={section.id}
+                          sectionTitle={section.sectionTitle}
+                          sectionDesc={section.sectionDesc}
+                          sectionText={sectionText}
+                        />
+                      )}
+                    </div>
+                  );
+                }
+                rows.push(
+                  <div key={rowIndex} className="flex flex-col md:flex-row">
+                    {columns}
                   </div>
-                ))}
-              </div>
-            )}
+                );
+              }
+              return rows;
+              })()
+            }
           </div>
         </div>
       </div>
