@@ -3,11 +3,13 @@ import StockOverview from '../StockOverview/StockOverview'
 import StockIcon from './StockIcon';
 import NavBar from './NavBar';
 import Analysis from './Analysis';
-import {useState} from 'react'
+import Company from './Company';
+import {useState,useEffect} from 'react'
 
 
 function StockPage(){
     const [activeComponent, setActiveComponent] = useState('overview');
+    const [session,setSession]=useState('overview')
 
     const scrollToSection = (sectionId) => {
         const section = document.getElementById(sectionId);
@@ -15,6 +17,20 @@ function StockPage(){
             section.scrollIntoView({ behavior: 'smooth' });
         }
     };
+
+    useEffect(() => {
+        // Scroll to the news section if navigating to the overview page and the active component is 'news'
+        if (activeComponent === 'overview'&& session==='overview') {
+            // scrollToSection("overview")
+        }
+        else if(activeComponent === 'overview'&& session==='news'){
+            scrollToSection("news")
+        }        
+        else if(activeComponent === 'overview'&& session==='discussion'){
+            scrollToSection("discussion")
+        }
+    }, [activeComponent,session]);
+
 
     const stock={
         'name':'Tesla Inc',
@@ -47,11 +63,12 @@ function StockPage(){
                     <StockIcon {...stock} />
                 </div>
                 <div id="navigationBar" className='flex justify-end w-full  '>
-                    <NavBar setActiveComponent={setActiveComponent} scrollToSection={scrollToSection}/>
+                    <NavBar setActiveComponent={setActiveComponent} setSession={setSession}/>
                 </div>
                 <div>
                     {activeComponent === 'overview' && <StockOverview />}
                     {activeComponent === 'analysis' && <Analysis />}
+                    {activeComponent === 'company' && <Company />}
                 </div>
             </div>
         </div>

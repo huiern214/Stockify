@@ -1,4 +1,5 @@
 import {ReactComponent as SortUp} from '../../assets/sort-up.svg'
+import {ReactComponent as SortDown} from '../../assets/sort-down.svg'
 
 
 function StockIcon({name,imageUrl,symbol,price,changes,isIncreasing}){
@@ -11,7 +12,8 @@ function StockIcon({name,imageUrl,symbol,price,changes,isIncreasing}){
                 <span className='font-normal text-sm text-gray-500'>{name}</span>
                 <span className='font-semibold text-3xl mt-5'>{'$'+price}</span>
                 <div className='flex items-center'>
-                    <SortUp className='h-4 w-2  mt-2 mr-2' style={{ fill: isIncreasing?'#00DA3C':'#EC0000' }}/>
+                    {isIncreasing?<SortUp className='h-4 w-2  mt-2 mr-2 fill-green-500'/>:<SortDown className='h-4 mb-1 w-2 mr-2 fill-red-500'/>}
+
                     <span className={isIncreasing?'font-normal text-sm text-green-500':'font-normal text-sm text-red-500'}>{changes+'%'}</span>
                 </div>
 

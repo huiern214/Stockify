@@ -2,21 +2,11 @@ import StockSummary from './Summary';
 import NewsRow from './News';
 import Discussion from './Discussion';
 import RelatedStock from './RelatedStock';
-import DisplayChart from './ChartGenerator';
-
-// function StockOverview({price,name,symbol,imageUrl,changes,isIncreasing}){
-    // const isIncreasingBool = !!isIncreasing;
-    // const stock={
-    //     'name':name,
-    //     'symbol':symbol,
-    //     'price':price,
-    //     'imageUrl':imageUrl,
-    //     'changes':changes,
-    //     'isIncreasing':isIncreasingBool
-//   }
+import {DisplayAnalysisChart} from './ChartGenerator';
+import axios from 'axios';
+import {useState,useEffect} from 'react'
     
-function StockOverview(){
-    
+function StockOverview(){    
     const summary={
     'volume':108.05,
     'marketCap':558.42,
@@ -42,14 +32,21 @@ function StockOverview(){
     ],
     };
     const options = {
+        animation:{
+            duration:1000,
+            delay:0,
+
+        },
         maintainAspectRatio: false,
         scales:{
             x:{
+                display:false,
                 grid:{
                      display:true
                 }
             },
             y:{
+                display:true,
                 grid:{
                      display:true
                 }
@@ -64,6 +61,47 @@ function StockOverview(){
             }
         }
     };
+    
+    const [interval,setInterval]=useState('1hour');
+    const [period,setPeriod]=useState(30);
+    const [stockSymbol,setStockSymbol]=useState('TSLA');
+
+    const fetchStockData=async()=>{
+        let toDate=new Date();
+        let fromDate=new Date(toDate);
+        fromDate.setDate(fromDate.getDate()-period)
+
+        let fromDateStr = fromDate.toISOString().slice(0, 10);
+        let toDateStr = toDate.toISOString().slice(0, 10);
+        try{
+            console.log("fromDateStr",fromDateStr)
+            console.log("toDateStr",toDateStr)
+            const response=await axios.get('https://financialmodelingprep.com/api/v3/historical-chart/'+interval+'/'+stockSymbol+'?from='+fromDateStr+'&to='+toDateStr+'&apikey=vlosml6TntFhwyJjPgOGcZ90pqLbsIvb');
+            const symbol="TSLA";
+            const data=response.data.reverse();
+            const dates = data.map(entry => entry.date);
+            const prices = data.map(entry => entry.close);
+            return({ labels: dates, datasets: [{ label:symbol,backgroundColor: "rgb(255, 99, 132)", // Setting up the background color for the dataset
+            borderColor: "rgb(255, 99, 132)", data: prices,pointStyle: 'none',pointRadius: 0}] })
+      
+        }catch(error){
+          console.error('Error fetching stock data:',error);
+          return null;
+        }
+      };
+
+      const [dataFetched,setDataFetched]=useState(null);
+
+      useEffect(() => {
+        const fetchData = async () => {
+            const hold = await fetchStockData();
+            setDataFetched(hold);
+        };
+        fetchData();
+        return () => {
+          setDataFetched(null); // Clear chart data
+        };
+      }, [period]);
 
     return (
         <div>
@@ -73,7 +111,7 @@ function StockOverview(){
                     <StockSummary {...summary}/>
                 </div>
                 <div id="graph" className='flex m-3 md:ml-0 justify-end md:w-2/3 h-full border rounded-lg'>
-                    <DisplayChart data={data} options={options} chartID='chart3'/>
+                    {dataFetched&&<DisplayAnalysisChart data={dataFetched} options={options} chartID='chart3' period={period} setPeriod={setPeriod}/>}
                 </div>
             </div>
 
