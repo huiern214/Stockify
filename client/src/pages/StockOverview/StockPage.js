@@ -2,14 +2,14 @@ import teslaicon from '../../assets/teslaIcon.png'
 import StockOverview from '../StockOverview/StockOverview'
 import StockIcon from './StockIcon';
 import NavBar from './NavBar';
-import Analysis from './Analysis';
+import Analysis from './Analysis/Analysis';
 import Company from './Company';
 import {useState,useEffect} from 'react'
 
 
 function StockPage(){
     const [activeComponent, setActiveComponent] = useState('overview');
-    const [session,setSession]=useState('overview')
+    const [session, setSession]=useState('overview')
 
     const scrollToSection = (sectionId) => {
         const section = document.getElementById(sectionId);
@@ -62,7 +62,7 @@ function StockPage(){
                 <div id="StockIcon" className='flex flex-row w-full h-48 relative '>
                     <StockIcon {...stock} />
                 </div>
-                <div id="navigationBar" className='flex justify-end w-full  '>
+                <div id="navigationBar" className='flex justify-start w-full md:justify-end'>
                     <NavBar setActiveComponent={setActiveComponent} setSession={setSession}/>
                 </div>
                 <div>

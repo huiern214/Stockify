@@ -2,7 +2,7 @@ import StockSummary from './Summary';
 import NewsRow from './News';
 import Discussion from './Discussion';
 import RelatedStock from './RelatedStock';
-import {DisplayAnalysisChart} from './ChartGenerator';
+import {DisplayAnalysisChart} from './Analysis/ChartGenerator';
 import axios from 'axios';
 import {useState,useEffect} from 'react'
     
@@ -126,8 +126,7 @@ function StockOverview(){
                 <div id="relatedStock" className='h-fit my-5 lg:mt-[6%] lg:mx-5 border rounded-lg'>
                     <RelatedStock/>
                 </div>
-            </div>
-            <iframe src="http://localhost:8501" className="w-full h-[100vh]"></iframe>    
+            </div> 
         </div>
     );
 }

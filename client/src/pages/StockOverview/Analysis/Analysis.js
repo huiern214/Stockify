@@ -1,9 +1,10 @@
 import {DisplayAnalysisChart} from './ChartGenerator';
 import {useState,useEffect} from 'react'
 import { Checkbox } from 'antd';
-import {ReactComponent as CancelIcon} from '../../assets/circle-xmark.svg'
-import {ReactComponent as PlusIcon} from '../../assets/plusIcon.svg'
+import {ReactComponent as CancelIcon} from '../../../assets/circle-xmark.svg'
+import {ReactComponent as PlusIcon} from '../../../assets/plusIcon.svg'
 import axios from 'axios';
+import Prediction from './Prediction';
 
 function Analysis(){
   const [dataFetched,setDataFetched]=useState(null);
@@ -164,11 +165,11 @@ function Analysis(){
                     
                   </div>
                 </div>
-                <div id="graph" className='flex m-3 md:ml-0 justify-end md:w-2/3 h-full border rounded-lg'>
+                <div id="graph" className='flex m-3 md:mx-0 justify-end md:w-2/3 h-full border rounded-lg'>
                     {dataFetched&&<DisplayAnalysisChart data={dataFetched} options={options} chartID='chart1' period={period} setPeriod={setPeriod}/>}
                 </div>
-              
-            </div>   
+            </div>
+            <Prediction/>   
         </div>
     );
 }

@@ -17,29 +17,39 @@ function Company(){
         customers. The company was formerly known as Tesla Motors, Inc. and changed its name to Tesla, Inc. in February 2017.\
         Tesla, Inc. was incorporated in 2003 and is headquartered in Austin, Texas."
 
+    const companyInfo = {
+        "CEO":"Mr. Elon R. Musk",
+        "Sector":"Consumer Cyclical",
+        "Industry": "Auto Manufacturers",
+        "HQ": "Menlo Park,California,US",
+        "Founded": "2004",
+        "Employee": 140473,
+        "IPO Date": "Jun 29,2010",
+        "Official Website": "https://www.tesla.com"
+    }
+
     return(
         <div className='mb-10'>
             <h2 className='text-2xl font-bold text-left mt-2 mb-2 text-black'>Company</h2>
-            <div className='flex flex-col md:flex-row w-full md:h-96 mt-2'>  
-                <div id="sideCompanyInfo"className='flex flex-col m-3 md:ml-0 md:w-1/3 h-full border rounded-lg '>
-                <h2 className="mb-1 mt-3 text-xl pl-5 font-bold text-gray-700">Summary</h2>
-                    <CompanySideDetail item="CEO" value="Mr. Elon R. Musk"/>
-                    <CompanySideDetail item="Sector" value="Consumer Cyclical"/>
-                    <CompanySideDetail item="Industry" value="Auto Manufacturers"/>
-                    <CompanySideDetail item="HQ" value="Menlo Park,California,US"/>
-                    <CompanySideDetail item="Founded" value="2004"/>
-                    <CompanySideDetail item="Employee" value={140473}/>
-                    <CompanySideDetail item="IPO Date" value="Jun 29,2010"/>
-                    <CompanySideDetail item="Official Website" value="https://www.tesla.com"/>
+            <div className='flex flex-col md:flex-row w-full mt-2'>  
+                <div id="sideCompanyInfo"className='flex flex-col m-3 md:ml-0 md:w-1/3 border rounded-lg '>
+                    <div>
+                        <h2 className="mb-1 mt-3 text-xl pl-5 font-bold text-gray-700">Summary</h2>
+                        <div className="flex flex-col w-full h-full">
+                            {Object.keys(companyInfo).map((item, index) => (
+                            <CompanySideDetail item={item} value={companyInfo[item]} key={index} />
+                            ))}
+                        </div>
+                    </div>
                 </div>
-                <div id="aboutCompany" className='flex flex-col m-3 md:ml-0 md:w-2/3 h-full border rounded-lg'>  
+                <div id="aboutCompany" className='flex flex-col m-3 md:ml-0 pb-5 md:w-2/3 h-fit border rounded-lg'>  
                     <h2 className="mt-3 text-xl pl-5 font-bold text-gray-700">About</h2>
-                    <div className="text-base pl-5">
+                    <div className="text-base px-5 text-justify">
                         {description}
                     </div>              
                 </div>   
             </div>
-            <h2 className='text-2xl font-bold text-left mt-7 mb-2 text-black'>Annual Income Statement</h2>
+            <h2 className='text-2xl font-bold text-left mt-7 mb-5 text-black'>Annual Income Statement</h2>
             <div className='flex flex-col md:flex-row w-full md:h-96 mt-2'>
                 <FinancialStatmentIncome/>
             </div> 
@@ -49,7 +59,7 @@ function Company(){
 
 const CompanySideDetail=({item,value})=>{
     return(
-        <div className="flex w-full px-10 my-2">
+        <div className="flex w-full px-5 my-2">
             <div className="w-[40%] text-gray-500 text-left">
                 {item}
             </div>
@@ -137,11 +147,11 @@ const FinancialStatmentIncome=()=>{
             <table className="w-full  mr-3 ">
                 {tableHeader.map((header,index)=>(
                     <tr>
-                        {index===0?<td className="pl-10 border-b">{header}</td>:
-                         index===12?<td className="pl-10 ">{header}</td>:
-                         <td className="pl-10 border-b">{header}</td>}
+                        {index===0?<td className="pl-5 border-b"><strong>{header}</strong></td>:
+                         index===12?<td className="pl-5 ">{header}</td>:
+                         <td className="pl-5 border-b">{header}</td>}
                         {incomeDetail.map((obj)=>(
-                            index===0?<td className="border-b">{obj.year}</td>:
+                            index===0?<td className="border-b"><strong>{obj.year}</strong></td>:
                             index===1?<td className="border-b">{obj.totalRevenue}</td>:
                             index===2?<td className="border-b">{obj.costOfRevenue}</td>:
                             index===3?<td className="border-b">{obj.grossProfit}</td>:
