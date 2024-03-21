@@ -76,7 +76,7 @@ function StockOverview(){
         try{
             console.log("fromDateStr",fromDateStr)
             console.log("toDateStr",toDateStr)
-            const response=await axios.get('https://financialmodelingprep.com/api/v3/historical-chart/'+interval+'/'+stockSymbol+'?from='+fromDateStr+'&to='+toDateStr+'&apikey=vlosml6TntFhwyJjPgOGcZ90pqLbsIvb');
+            const response=await axios.get('https://financialmodelingprep.com/api/v3/historical-chart/'+interval+'/'+stockSymbol+'?from='+fromDateStr+'&to='+toDateStr+'&apikey=sPjSlyqmXn0XzSgR7PZ0NjtROnwrwh8B');
             const symbol="TSLA";
             const data=response.data.reverse();
             const dates = data.map(entry => entry.date);
