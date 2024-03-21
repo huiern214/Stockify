@@ -1,2 +1,7 @@
 /.DS_Store
 node_modules/
+server/stockify/service/__pycache__
+server/server/__pycache__
+server/stockify/__pycache__
+server/.DS_Store
+server/stockify/migrations/__pycache__
