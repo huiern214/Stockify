@@ -86,7 +86,7 @@ function Analysis(){
       return () => {
         setDataFetched(null); // Clear chart data
       };
-    }, []);
+    }, [period]);
 
     const updateChartDataProperty=()=>{
       let newData={...dataFetched};
@@ -351,8 +351,8 @@ function CompareStock({dataFetched,setDataFetched,buyChecked,sellChecked,period,
           {showInput?(
             <div className="flex w-full h-full ">
               <PlusIcon className="w-3 h-6 mr-2" style={{fill:'#9E9E9E'}} onClick={SubmitStockName}/>
-              <input className="w-content text-gray-500"type='text' placeholder="Enter stock's name" onKeyDown={HandleKeyDown} onChange={HandleStockNameChange}></input>
-              <button className='text-gray-500 text-sm ml-5' onClick={CancelInputStockName}>cancel</button>
+              <input className="w-content text-gray-500 rounded-md border-gray-300" type='text' placeholder="Enter stock's name" onKeyDown={HandleKeyDown} onChange={HandleStockNameChange}></input>
+              <button className='text-gray-500 text-sm ml-5' onClick={CancelInputStockName}>Cancel</button>
             </div>
             
           ):(

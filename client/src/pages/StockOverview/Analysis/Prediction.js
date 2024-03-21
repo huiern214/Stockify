@@ -13,7 +13,7 @@ const Prediction = () => {
             try {
                 const response = await api.get('/stockify/stock-prediction');
                 setForecastData(response.data);
-                console.log(response.data);
+                // console.log(response.data);
                 setIsLoading(false);
             } catch (error) {
                 setError(error.message);
@@ -25,7 +25,7 @@ const Prediction = () => {
             try {
                 const response = await api.get('/stockify/stock-data');
                 setActualData(response.data);
-                console.log(response.data);
+                // console.log(response.data);
                 setIsLoading(false);
             } catch (error) {
                 setError(error.message);
