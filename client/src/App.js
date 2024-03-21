@@ -15,6 +15,7 @@ import Learn from './pages/Learn';
 import Profile from './pages/Profile';
 import NotFound404 from './pages/NotFound404';
 import StockOverview from './pages/StockOverview/StockOverview';
+import Prediction from './pages/Prediction/Prediction';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/report" element={<Report />} />
             <Route path="/learn" element={<Learn />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/prediction" element={<Prediction />} />
             <Route path="*" element={<NotFound404 />} />
           </Route>
         </Routes>
