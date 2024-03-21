@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import Filter from '../assets/Filter.png'
 import Close from '../assets/Close.png'
 import Plus from '../assets/Plus.png'
-import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa'
+import { FaEdit, FaPlus, FaTrash, FaArrowUp, FaArrowDown } from 'react-icons/fa'
 
 const filterOptions = [
   { id: 'AAPL', ticker: 'AAPL', checked: false },
@@ -107,8 +107,8 @@ const oriTransactionItems = [
 function FilterButton({ optionsState, handleCheckboxChange }) {
   return (
     <Popover className="relative">
-      <Popover.Button className="inline-flex items-center p-2 rounded-2xl hover:bg-gray-200 border border-black">
-        <img src={Filter} alt="Filter" className="w-5 h-5 mr-2"/>
+      <Popover.Button className="inline-flex items-center p-2 rounded-2xl hover:bg-gray-50 border border-gray-200/50 text-gray-700">
+        <img src={Filter} alt="Filter" className="w-5 h-5 mr-2 "/>
         Filter
       </Popover.Button>
       <Transition
@@ -121,12 +121,12 @@ function FilterButton({ optionsState, handleCheckboxChange }) {
         leaveTo="opacity-0 translate-y-1"
       >
         <Popover.Panel className="mt-1 absolute z-10 flex w-auto max-w-max">
-          <div className="w-auto flex-auto overflow-hidden rounded-2xl bg-white text-sm leading-loose shadow-lg ring-1 ring-gray-900/50">
+          <div className="w-auto flex-auto overflow-hidden rounded-2xl bg-white text-sm leading-loose shadow-lg ring-1 ring-gray-200/50">
             <div className="p-4">
               {
               optionsState.map((option) => (
                 <div className="flex items-center">
-                  <input type="checkbox" id={option.id} className="rounded text-blue-500 focus:ring-blue-500" defaultChecked={option.checked} onChange={() => handleCheckboxChange(option.id)}/>
+                  <input type="checkbox" id={option.id} className="rounded text-blue-500" defaultChecked={option.checked} onChange={() => handleCheckboxChange(option.id)}/>
                   <label className="ml-2">{option.ticker}</label>
                 </div>
               ))}
@@ -448,11 +448,25 @@ function AddTransactionButton({ handleAddTransaction }) {
 
 function TransactionTable({ transactionItems }) {
   const [sortedItems, setSortedItems] = useState(transactionItems);
-  const [sortConfig, setSortConfig] = useState(null);
+  const [sortConfig, setSortConfig] = useState({
+    'Date': 'ascending',
+    'Type': null,
+    'Ticker': null,
+    'Quantity': null,
+    'PricePerShare': null,
+    'Fees': null
+  });
+  
+  // Function to update a property in the dictionary
+  const updateDictionary = (key, value) => {
+    const updatedDictionary = { ...sortConfig };
+    updatedDictionary[key] = value;
+    setSortConfig(updatedDictionary);
+  };
 
   const requestSort = (key) => {
     let direction = 'ascending';
-    if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
+    if (sortConfig[key] === 'ascending') {
       direction = 'descending';
     }
     const sorted = [...sortedItems].sort((a, b) => {
@@ -465,20 +479,52 @@ function TransactionTable({ transactionItems }) {
       return direction === 'descending' ? comparison * -1 : comparison;
     });
     setSortedItems(sorted);
-    setSortConfig({ key, direction });
+    // setSortConfig({ key, direction });
+    setSortConfig({
+      'Date': null,
+      'Type': null,
+      'Ticker': null,
+      'Quantity': null,
+      'PricePerShare': null,
+      'Fees': null
+    })
+    updateDictionary(key, direction);
   }
 
+  useEffect(() => {
+    requestSort('Date');
+  }
+  , []);
+
   return (
-    <div class="overflow-x-auto flex flex-1 mx-3 shadow-md sm:rounded-lg">
-      <table class="table-auto w-full text-sm text-right rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <div className="overflow-x-auto flex flex-1 mx-3 shadow-md sm:rounded-lg">
+      <table className="table-auto w-full text-sm text-right rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Type')}>Type</th>
+            {/* <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Type')}>Type</th>
             <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Ticker')}>Ticker</th>
             <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Date')}>Date</th>
             <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Quantity')}>Quantity</th>
             <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('PricePerShare')}>Price / Share</th>
-            <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Fees')}>Fees</th>
+            <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Fees')}>Fees</th> */}
+            <th className="px-1 py-3 hover:text-black cursor-pointer" onClick={() => requestSort('Date')}>
+              Date {sortConfig['Date'] === null ? '' : sortConfig['Date'] === 'ascending' ? <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" /> : <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />}
+            </th>
+            <th className="px-1 py-3 hover:text-black cursor-pointer text-center" onClick={() => requestSort('Type')}>
+              Type {sortConfig['Type'] === null ? '' : sortConfig['Type'] === 'ascending' ? <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" /> : <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />}
+            </th>
+            <th className="px-1 py-3 hover:text-black cursor-pointer" onClick={() => requestSort('Ticker')}>
+              Ticker {sortConfig['Ticker'] === null ? '' : sortConfig['Ticker'] === 'ascending' ? <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" /> : <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />}
+            </th>
+            <th className="px-1 py-3 hover:text-black cursor-pointer" onClick={() => requestSort('Quantity')}>
+              Quantity {sortConfig['Quantity'] === null ? '' : sortConfig['Quantity'] === 'ascending' ? <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" /> : <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />}
+            </th>
+            <th className="px-1 py-3 hover:text-black cursor-pointer" onClick={() => requestSort('PricePerShare')}>
+              Price / Share {sortConfig['PricePerShare'] === null ? '' : sortConfig['PricePerShare'] === 'ascending' ? <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" /> : <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />}
+            </th>
+            <th className="px-1 py-3 hover:text-black cursor-pointer" onClick={() => requestSort('Fees')}>
+              Fees {sortConfig['Fees'] === null ? '' : sortConfig['Fees'] === 'ascending' ? <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" /> : <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />}
+            </th>
             <th className="px-1 py-3">Notes</th>
             <th className="px-1 py-3 text-center">Action</th>
           </tr>
@@ -487,9 +533,9 @@ function TransactionTable({ transactionItems }) {
           {
           sortedItems.map((item, index) => (
             <tr>
+              <td className="py-2">{item.Date}</td>
               <td className="py-2">{item.Type}</td>
               <td className="py-2">{item.Ticker}</td>
-              <td className="py-2">{item.Date}</td>
               <td className="py-2">{item.Quantity}</td>
               <td className="py-2">{item.PricePerShare}</td>
               <td className="py-2">{item.Fees}</td>
@@ -515,11 +561,25 @@ function TransactionTable({ transactionItems }) {
 // Ticker Price Change % Holdings Realized P/L Unrealized P/L
 function WatchlistTable({ watchlistItems }) {
   const [sortedItems, setSortedItems] = useState(watchlistItems);
-  const [sortConfig, setSortConfig] = useState(null);
+  const [sortConfig, setSortConfig] = useState({ 
+    'Ticker': null,
+    'Price': null,
+    'Holdings': null,
+    'RealizedPL': null,
+    'UnrealizedPL': null
+  });
+
+  // Function to update a property in the dictionary
+  const updateDictionary = (key, value) => {
+    const updatedDictionary = { ...sortConfig };
+    updatedDictionary[key] = value;
+    setSortConfig(updatedDictionary);
+  };
 
   const requestSort = (key) => {
     let direction = 'ascending';
-    if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
+    // if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
+    if (sortConfig[key] === 'ascending') {
       direction = 'descending';
     }
     const sorted = [...sortedItems].sort((a, b) => {
@@ -536,27 +596,57 @@ function WatchlistTable({ watchlistItems }) {
       return direction === 'descending' ? comparison * -1 : comparison;
     });
     setSortedItems(sorted);
-    setSortConfig({ key, direction });
+    setSortConfig({
+        'Ticker': null,
+        'Price': null,
+        'Holdings': null,
+        'RealizedPL': null,
+        'UnrealizedPL': null
+    })
+    updateDictionary(key, direction);
   }
 
+  useEffect(() => {
+    requestSort('Ticker');
+  }
+  , []);
+
   return (
-    <div class="overflow-x-auto flex flex-1 mx-3 shadow-md sm:rounded-lg">
-      <table class="table-auto w-full text-sm text-right rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
+    <div className="overflow-x-auto flex flex-1 mx-3 shadow-md sm:rounded-lg">
+      <table className="table-auto w-full text-sm text-right rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          {/* <tr>
             <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Ticker')}>Ticker</th>
             <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Price')}>Price</th>
             <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('Holdings')}>Holdings</th>
             <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('RealizedPL')}>Realized P/L</th>
             <th className="px-1 py-3 hover:text-white cursor-pointer" onClick={() => requestSort('UnrealizedPL')}>Unrealized P/L</th>
             <th className="px-1 py-3 text-center">Action</th>
-          </tr>
+          </tr> */}
+          <tr>
+            <th className="px-1 py-3 hover:text-black cursor-pointer text-center" onClick={() => requestSort('Ticker')}>
+                Ticker {sortConfig['Ticker'] === null ? '' : sortConfig['Ticker'] === 'ascending' ? <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" /> : <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />}
+            </th>
+            <th className="px-1 py-3 hover:text-black cursor-pointer" onClick={() => requestSort('Price')}>
+              Price {sortConfig['Price'] === null ? '' : sortConfig['Price'] === 'ascending' ? <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" /> : <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />}
+            </th>
+            <th className="px-1 py-3 hover:text-black cursor-pointer" onClick={() => requestSort('Holdings')}>
+              Holdings {sortConfig['Holdings'] === null ? '' : sortConfig['Holdings'] === 'ascending' ? <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" /> : <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />}
+            </th>
+            <th className="px-1 py-3 hover:text-black cursor-pointer" onClick={() => requestSort('RealizedPL')}>
+              Realized P/L {sortConfig['RealizedPL'] === null ? '' : sortConfig['RealizedPL'] === 'ascending' ? <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" /> : <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />}
+            </th>
+            <th className="px-1 py-3 hover:text-black cursor-pointer" onClick={() => requestSort('UnrealizedPL')}>
+              Unrealized P/L {sortConfig['UnrealizedPL'] === null ? '' : sortConfig['UnrealizedPL'] === 'ascending' ? <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" /> : <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />}
+            </th>
+          <th className="px-1 py-3 text-center">Action</th>
+        </tr>
         </thead>
         <tbody>
           {
             sortedItems.map((item, index) => (
               <tr>
-                <td className="py-2">{item.Ticker}</td>
+                <td className="py-2 text-center">{item.Ticker}</td>
                 <td className="py-2">{item.Price}</td>
                 <td className="py-2">
                   <div className="whitespace-nowrap">{item.Holdings}</div>
@@ -596,6 +686,12 @@ const Portfolio = () => {
     if (value > 0) return 'text-green-500';
     if (value < 0) return 'text-red-500';
     return 'text-black';
+  }
+
+  const [inputValue, setInputValue] = useState('');
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
   }
 
   const [optionsState, setOptionsState] = useState(filterOptions);
@@ -694,7 +790,7 @@ const Portfolio = () => {
 
         <div className="flex items-center md:justify-between md:mx-5">
           <FilterButton optionsState={optionsState} handleCheckboxChange={handleCheckboxChange}/>
-          <div class="hidden md:block"/>
+          <div className="hidden md:block"/>
           <div className="flex items-center space-x-5 py-4 md:p-4">
             <DateSelector variation="from"/>
             <span className="mx-2"> - </span>
@@ -738,26 +834,25 @@ const Portfolio = () => {
           <div className="flex flex-row items-center">
             {/* Search button */}
             <div
-              class="relative flex"
+              className="relative flex"
               data-twe-input-wrapper-init
               data-twe-input-group-ref>
               <input
                 type="search"
-                class="peer block min-h-[auto] w-full rounded bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0 border-gray-300"
+                className="peer block min-h-[auto] w-full rounded bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary border-gray-300"
                 placeholder="Search"
                 aria-label="Search"
                 id="exampleFormControlInput"
+                value={inputValue}
+                onChange={handleInputChange}
                 aria-describedby="basic-addon1" />
-              <label for="exampleFormControlInput" class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.5rem] peer-focus:-translate-x-[0.8rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-400 dark:peer-focus:text-primary">
-                Search
-              </label>
               <button
-                class="relative z-[2] -ms-0.5 flex items-center rounded-e bg-primary px-5  text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-blue-600 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                className="relative z-[2] -ms-0.5 flex items-center rounded-e bg-primary px-5  text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-blue-600 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                 type="button"
                 id="button-addon1"
                 data-twe-ripple-init
                 data-twe-ripple-color="light">
-                <span class="[&>svg]:h-5 [&>svg]:w-5">
+                <span className="[&>svg]:h-5 [&>svg]:w-5">
                   <svg
                     fill="none"
                     viewBox="0 0 24 24"
