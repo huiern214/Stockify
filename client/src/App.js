@@ -14,7 +14,7 @@ import Report from './pages/Report';
 import Learn from './pages/Learn';
 import Profile from './pages/Profile';
 import NotFound404 from './pages/NotFound404';
-import StockOverview from './pages/StockOverview/StockOverview';
+import StockPage from './pages/StockOverview/StockPage';
 import Prediction from './pages/Prediction/Prediction';
 
 function App() {
@@ -25,10 +25,9 @@ function App() {
         <Routes >
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
           <Route element={<WithNavbar />}>
             <Route path="/" element={<Home />} />
-            <Route path="/stocks/:stockId" element={<StockOverview />} />
+            <Route path="/stocks/:stockId" element={<StockPage/>} />
             <Route path="/news" element={<News />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/analyze" element={<Analyze />} />
