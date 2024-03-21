@@ -15,7 +15,7 @@ class TrendingStocks extends Component {
 
     componentDidMount() {
         // Make an API request to fetch trending stock data
-        axios.get('https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=zzIsIQczVCtNjvqK3QSNXkzW0T4fg3XB')
+        axios.get('https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=vlosml6TntFhwyJjPgOGcZ90pqLbsIvb')
             .then(response => {
                 const trendingStocksData = response.data;
                 this.setState({

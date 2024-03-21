@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../api/axiosConfig';
+import api from '../../../api/axiosConfig';
 import ForecastPlot from './ForecastPlot'; // Assuming you have the ForecastPlot component in a separate file
 
 const Prediction = () => {
@@ -46,13 +46,11 @@ const Prediction = () => {
     }
 
     return (
-        <div className="container mx-auto md:px-6">
-        <div className="mx-[5%] md:mx-0">
-            <p className="text-2xl font-semibold text-left mt-5 mb-10 text-black">
+        <div className="mx-3 md:mx-0 border rounded-lg mt-6">
+            <p className="pl-5 mb-1 text-xl font-bold text-gray-700 mt-5">
             Stock Prediction
             </p>
             <ForecastPlot actualData={actualData} forecastData={forecastData} nYears={1} /> {/* Change nYears as needed */}
-            </div>
         </div>
     );
 };
