@@ -2,8 +2,14 @@
 
 ## Getting Started
 **Server**  
-Not yet released...  
-  
+1. Open terminal
+  ```
+    cd server
+    pip install -r requirements.txt
+    python manage.py runserver
+  ```
+2. Access the server at `http://localhost:8000`.    
+
 **Client**  
 1. Install [Node.js]("https://nodejs.org/en/download")  
 2. Open terminal
