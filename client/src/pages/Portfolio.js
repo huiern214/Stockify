@@ -12,15 +12,6 @@ import {
   FaArrowDown,
 } from "react-icons/fa";
 
-const filterOptions = [
-  { id: "AAPL", ticker: "AAPL", checked: false },
-  { id: "MSFT", ticker: "MSFT", checked: false },
-  { id: "TSLA", ticker: "TSLA", checked: false },
-  { id: "GOOG", ticker: "GOOG", checked: false },
-  { id: "AMZN", ticker: "AMZN", checked: false },
-  { id: "NVDA", ticker: "NVDA", checked: false },
-];
-
 const oriWatchlistItems = [
   {
     Ticker: "AAPL",
@@ -110,7 +101,7 @@ const oriTransactionItems = [
   },
 ];
 
-function FilterButton({ optionsState, handleCheckboxChange }) {
+function FilterButton({ filters, handleCheckboxChange, setFiltersState }) {
   return (
     <Popover className="relative">
       <Popover.Button className="inline-flex items-center p-2 rounded-2xl hover:bg-gray-50 border border-gray-200/50 text-gray-700">
@@ -129,14 +120,16 @@ function FilterButton({ optionsState, handleCheckboxChange }) {
         <Popover.Panel className="mt-1 absolute z-10 flex w-auto max-w-max">
           <div className="w-auto flex-auto overflow-hidden rounded-2xl bg-white text-sm leading-loose shadow-lg ring-1 ring-gray-200/50">
             <div className="p-4">
-              {optionsState.map((option) => (
+              {filters.map((option) => (
                 <div className="flex items-center">
                   <input
                     type="checkbox"
                     id={option.id}
                     className="rounded text-blue-500"
                     defaultChecked={option.checked}
-                    onChange={() => handleCheckboxChange(option.id)}
+                    onChange={() =>
+                      handleCheckboxChange(option.id, setFiltersState)
+                    }
                   />
                   <label className="ml-2">{option.ticker}</label>
                 </div>
@@ -914,6 +907,25 @@ const Portfolio = () => {
     return "text-black";
   };
 
+  const extractTickers = (data) => {
+    const tickerSet = new Set();
+    const uniqueTickers = [];
+
+    data.forEach((item) => {
+      const ticker = item.Ticker;
+      if (!tickerSet.has(ticker)) {
+        tickerSet.add(ticker);
+        uniqueTickers.push({
+          id: ticker,
+          ticker: ticker,
+          checked: false,
+        });
+      }
+    });
+
+    return uniqueTickers;
+  };
+
   const getTodayDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -965,8 +977,33 @@ const Portfolio = () => {
   // watchlist type of filters: apply filter or search
   const [filteredWatchlist, setFilteredWatchlist] = useState([]);
 
+  // Filter Ticker
+  const [watchlistFilters, setWatchlistFilters] = useState(
+    extractTickers(watchlistItems)
+  );
+
+  const handleCheckboxChange = (id, setFiltersState) => {
+    setFiltersState((prevOptions) =>
+      prevOptions.map((option) =>
+        option.id === id ? { ...option, checked: !option.checked } : option
+      )
+    );
+  };
+  const handleDeleteFilter = (id, setFiltersState) => {
+    setFiltersState((prevOptions) =>
+      prevOptions.map((option) =>
+        option.id === id ? { ...option, checked: false } : option
+      )
+    );
+  };
+
   // transaction type of filters: apply filter, date range or search
   const [filteredTransaction, setFilteredTransaction] = useState([]);
+
+  // Filter Ticker
+  const [transactionFilters, setTransactionFilters] = useState(
+    extractTickers(transactionItems)
+  );
 
   // From To Date Range
   const [fromDate, setFromDate] = useState("2000-01-01");
@@ -1005,22 +1042,6 @@ const Portfolio = () => {
   const [inputValue, setInputValue] = useState("");
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
-  };
-
-  const [optionsState, setOptionsState] = useState(filterOptions);
-  const handleCheckboxChange = (id) => {
-    setOptionsState((prevOptions) =>
-      prevOptions.map((option) =>
-        option.id === id ? { ...option, checked: !option.checked } : option
-      )
-    );
-  };
-  const handleDeleteFilter = (id) => {
-    setOptionsState((prevOptions) =>
-      prevOptions.map((option) =>
-        option.id === id ? { ...option, checked: false } : option
-      )
-    );
   };
 
   const [transactionActive, setTransactionActive] = useState(null);
@@ -1092,10 +1113,20 @@ const Portfolio = () => {
         </div>
 
         <div className="flex items-center md:justify-between md:mx-5 py-4 md:p-4">
-          <FilterButton
-            optionsState={optionsState}
-            handleCheckboxChange={handleCheckboxChange}
-          />
+          {watchlistActive && (
+            <FilterButton
+              filters={watchlistFilters}
+              handleCheckboxChange={handleCheckboxChange}
+              setFiltersState={setWatchlistFilters}
+            />
+          )}
+          {transactionActive && (
+            <FilterButton
+              filters={transactionFilters}
+              handleCheckboxChange={handleCheckboxChange}
+              setFiltersState={setTransactionFilters}
+            />
+          )}
           <div className="hidden md:block" />
           {transactionActive && (
             <div className="flex items-center space-x-5">
@@ -1114,19 +1145,35 @@ const Portfolio = () => {
 
         <div className="ml-5 mb-3 flex items-center">
           <span className="mr-3">Applied Filters:</span>
-          {optionsState.filter((option) => option.checked).length > 0 ? (
-            optionsState
-              .filter((option) => option.checked)
-              .map((option) => (
-                <AppliedFilter
-                  key={option.id}
-                  ticker={option.ticker}
-                  handleDeleteFilter={() => handleDeleteFilter(option.id)}
-                />
-              ))
-          ) : (
-            <AppliedFilter />
-          )}
+          {watchlistActive &&
+            (watchlistFilters.filter((option) => option.checked).length > 0 ? (
+              watchlistFilters
+                .filter((option) => option.checked)
+                .map((option) => (
+                  <AppliedFilter
+                    key={option.id}
+                    ticker={option.ticker}
+                    handleDeleteFilter={() => handleDeleteFilter(option.id)}
+                  />
+                ))
+            ) : (
+              <AppliedFilter />
+            ))}
+          {transactionActive &&
+            (transactionFilters.filter((option) => option.checked).length >
+            0 ? (
+              transactionFilters
+                .filter((option) => option.checked)
+                .map((option) => (
+                  <AppliedFilter
+                    key={option.id}
+                    ticker={option.ticker}
+                    handleDeleteFilter={() => handleDeleteFilter(option.id)}
+                  />
+                ))
+            ) : (
+              <AppliedFilter />
+            ))}
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-between mx-5">
@@ -1197,7 +1244,7 @@ const Portfolio = () => {
 
         {watchlistActive && (
           <WatchlistTable
-            watchlistItems={filteredWatchlist}
+            watchlistItems={watchlistItems}
             searchQuery={inputValue}
           />
         )}
