@@ -141,11 +141,11 @@ function CustomizeButton({ sectionOptions, handleCheckboxChange }) {
 
 function GenerateButton() {
   return (
-    <button className="flex items-center p-2 border rounded-lg bg-primary text-white hover:bg-primary/80">
+    <button className="relative flex items-center p-2 border rounded-lg text-white overflow-hidden bg-gradient-to-r from-blue-500 to-purple-500 animate-bg-slide hover:from-purple-600 hover:to-blue-600">
       Generate Now
       <img src={Generate} alt="Generate Report" className="w-5 h-5 ml-2" />
     </button>
-  )
+  );
 }
 
 function ReportGrade({ grade }) {
