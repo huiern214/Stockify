@@ -1,7 +1,12 @@
 {
   "dependencies": {
     "@canvasjs/react-charts": "^1.0.2",
+    "apexcharts": "^3.48.0",
     "chart.js": "^4.4.2",
-    "papaparse": "^5.4.1"
+    "papaparse": "^5.4.1",
+    "plotly.js": "^2.30.1",
+    "react-apexcharts": "^1.4.1",
+    "react-plotly.js": "^2.6.0",
+    "ws": "^8.16.0"
   }
 }

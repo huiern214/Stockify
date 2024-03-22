@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState} from 'react'
-import Heatmap from '../components/Heatmap'
 import TickerList from '../components/TickerList'
 import nasdaqFile from '../indexdata/NASDAQ.csv'
 import dowFile from '../indexdata/DOW.csv'
@@ -7,6 +6,7 @@ import sp500File from '../indexdata/S&P500.csv'
 import IndexChart from '../components/IndexChart'
 import TopGainerStocks from '../components/TopGainerStock'
 import TrendingStocks from '../components/TrendingStock'
+import TreeMapChart from '../components/TreeMapChart'
 
 const Home = () => {
 
@@ -85,9 +85,9 @@ const Home = () => {
             </div>
             
             {/* Heatmap */}
-            <div className="w-1/3">
+            <div className="w-full">
               {/* Heatmap component */}
-              <Heatmap data={heatmapData} />
+              <TreeMapChart/>
             </div>
           </div>
           
