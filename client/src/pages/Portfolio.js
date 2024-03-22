@@ -996,6 +996,18 @@ const Portfolio = () => {
       )
     );
   };
+  const applyFilters = (items, filters) => {
+    const activeFilters = filters.filter((option) => option.checked);
+    if (activeFilters.length === 0) return items;
+    return items.filter((item) =>
+      activeFilters.some((filter) => filter.ticker === item.Ticker)
+    );
+  };
+
+  useEffect(() => {
+    const filteredWatchlist = applyFilters(watchlistItems, watchlistFilters);
+    setFilteredWatchlist(filteredWatchlist);
+  }, [watchlistItems, watchlistFilters]);
 
   // transaction type of filters: apply filter, date range or search
   const [filteredTransaction, setFilteredTransaction] = useState([]);
@@ -1004,6 +1016,14 @@ const Portfolio = () => {
   const [transactionFilters, setTransactionFilters] = useState(
     extractTickers(transactionItems)
   );
+
+  useEffect(() => {
+    const filteredTransaction = applyFilters(
+      transactionItems,
+      transactionFilters
+    );
+    setFilteredTransaction(filteredTransaction);
+  }, [transactionItems, transactionFilters]);
 
   // From To Date Range
   const [fromDate, setFromDate] = useState("2000-01-01");
@@ -1153,7 +1173,9 @@ const Portfolio = () => {
                   <AppliedFilter
                     key={option.id}
                     ticker={option.ticker}
-                    handleDeleteFilter={() => handleDeleteFilter(option.id)}
+                    handleDeleteFilter={() =>
+                      handleDeleteFilter(option.id, setWatchlistFilters)
+                    }
                   />
                 ))
             ) : (
@@ -1168,7 +1190,9 @@ const Portfolio = () => {
                   <AppliedFilter
                     key={option.id}
                     ticker={option.ticker}
-                    handleDeleteFilter={() => handleDeleteFilter(option.id)}
+                    handleDeleteFilter={() =>
+                      handleDeleteFilter(option.id, setTransactionFilters)
+                    }
                   />
                 ))
             ) : (
@@ -1244,7 +1268,7 @@ const Portfolio = () => {
 
         {watchlistActive && (
           <WatchlistTable
-            watchlistItems={watchlistItems}
+            watchlistItems={filteredWatchlist}
             searchQuery={inputValue}
           />
         )}
