@@ -154,7 +154,7 @@ function Analysis(){
                       <div className="flex flex-col w-full h-1/2 pt-3 pl-5">
                         <h2 className="mb-1 text-xl font-bold text-gray-700">Compare with</h2>
                         <div>
-                          <CompareStock dataFetched={dataFetched} setDataFetched={setDataFetched} buyChecked={buyChecked} sellChecked={sellChecked} period={period} interval={interval}/>
+                          <CompareStock dataFetched={dataFetched} setDataFetched={setDataFetched} buyChecked={buyChecked} setBuyChecked={setBuyChecked} sellChecked={sellChecked} setSellChecked={setSellChecked} period={period} interval={interval}/>
                         </div>
                       </div>
                       <div className="flex flex-col w-full h-1/2 pt-5 pl-5">
@@ -175,14 +175,11 @@ function Analysis(){
 }
 
 
-function CompareStock({dataFetched,setDataFetched,buyChecked,sellChecked,period,interval}){
-
+function CompareStock({dataFetched,setDataFetched,buyChecked,setBuyChecked,sellChecked,setSellChecked,period,interval}){
     const [showInput,setShowInput]=useState(false);
     const [stockName,setStockName]=useState(null);
     const [stocks,setStocks]=useState([]);
     const [isFetchDataset,setIsFetchDataset]=useState(false);
-    const [currentColor,setCurrentColor]=useState('rgb(0,0,255)');
-    const colors=['#0000FF', '#FFA500']
     const [availableColor,setAvailableColor]=useState([
       {
         "color":"rgb(0,0,255)",
@@ -311,12 +308,6 @@ function CompareStock({dataFetched,setDataFetched,buyChecked,sellChecked,period,
       ...dataFetched,datasets:updatedDatasets
     };
     setDataFetched(newChartData)
-    if(stocks.length===0){
-      setCurrentColor('rgb(0, 0, 255)')
-    }
-    else if(stocks.length===1){
-      setCurrentColor('rgb(255, 165, 0)')
-    }
 
   }
 
@@ -379,12 +370,6 @@ function CompareStock({dataFetched,setDataFetched,buyChecked,sellChecked,period,
       setDataFetched(newChartData);
       setIsFetchDataset(false);
       setStockName(null);
-      if(stocks.length===0){
-        setCurrentColor('rgb(0, 0, 255)')
-      }
-      else if(stocks.length===1){
-        setCurrentColor('rgb(255, 165, 0)')
-      }
     };
     if(isFetchDataset){
       fetchData();
@@ -394,6 +379,19 @@ function CompareStock({dataFetched,setDataFetched,buyChecked,sellChecked,period,
       // setDataset(null); // Clear chart data
     };
   }, [isFetchDataset]);
+
+  useEffect(()=>{
+    setStocks([])
+    const updatedAvailableColor = availableColor.map(color => {
+        return {
+          ...color,
+          status: false
+        };
+    });
+    setAvailableColor(updatedAvailableColor);
+    setBuyChecked(false);
+    setSellChecked(false); 
+  },[period])
 
 
   return(

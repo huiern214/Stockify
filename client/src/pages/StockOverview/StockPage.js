@@ -5,6 +5,7 @@ import NavBar from './NavBar';
 import Analysis from './Analysis/Analysis';
 import Company from './Company';
 import {useState,useEffect} from 'react'
+import star from '../../assets/star.svg';
 
 
 function StockPage(){
@@ -35,32 +36,29 @@ function StockPage(){
     const stock={
         'name':'Tesla Inc',
         'symbol':'TSLA',
-        'price':178.9,
+        'price':169.13,
         'imageUrl':teslaicon,
-        'changes':3.07,
-        'isIncreasing':true
+        'changes':-3.07,
+        'isIncreasing':false
       }
 
-      const response={
-        "symbol":'TSLA',
-        "historical":[
-          {"date":"2024-01-01","price":10},
-          {"date":"2024-01-02","price":9},
-          {"date":"2024-01-03","price":12},
-          {"date":"2024-01-04","price":25},
-          {"date":"2024-01-05","price":12},
-          {"date":"2024-01-06","price":1},
-          {"date":"2024-01-07","price":4},
-          {"date":"2024-01-08","price":3},
-          {"date":"2024-01-09","price":15},
-          {"date":"2024-01-10","price":19},
-        ]
-      }
     return(
         <div class="container mx-auto md:px-6">
             <div class="mx-[5%] md:mx-0">
-                <div id="StockIcon" className='flex flex-row w-full h-48 relative '>
-                    <StockIcon {...stock} />
+                <div className='flex flex-row w-full h-48 relative'>
+                    <div id="StockIcon" className='flex flex-row w-[90%] h-full relative '>
+                        <StockIcon {...stock} />
+                    </div>
+                    <button className='absolute  bottom-10 right-2' aria-label="Add to wishlist"> 
+                      <img src={star} alt='Add to wishlist' className='w-10 h-10 mr-2 text-yellow-500 transition-opacity duration-300 hover:opacity-80 fill-current'/>
+                    </button>
+                    <div className='absolute bottom-10 right-16 '>
+                        <input
+                            type='text'
+                            placeholder='Search ticker'
+                            className='border border-gray-300 md:px-4 py-2 rounded-lg focus:outline-none focus:border-blue-500'
+                        />
+                    </div>
                 </div>
                 <div id="navigationBar" className='flex justify-start w-full md:justify-end'>
                     <NavBar setActiveComponent={setActiveComponent} setSession={setSession}/>

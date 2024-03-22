@@ -8,29 +8,15 @@ import {useState,useEffect} from 'react'
     
 function StockOverview(){    
     const summary={
-    'volume':108.05,
-    'marketCap':558.42,
-    'dayMin':174.56,
-    'dayMax':182.57,
+    'volume':103.97,
+    'marketCap':550.4,
+    'dayMin':166.11,
+    'dayMax':169.74,
     'yearMin':152.19,
     'yearMax':298.80,
-    'priceEarningRatio':40.75
+    'priceEarningRatio':40.16
     }
 
-    const labels = ["January", "February", "March", "April", "May", "June","July","August","September","October"];
-    const data = {
-    labels: labels,
-    datasets: [
-        {
-        label: "TSLA", // Setting up the label for the dataset
-        backgroundColor: "rgb(255, 99, 132)", // Setting up the background color for the dataset
-        borderColor: "rgb(255, 99, 132)", // Setting up the border color for the dataset
-        data: [0, 10, 5, 2, 20, 30, 45,34,67,89,10], // Setting up the data for the dataset
-        pointStyle: 'none',
-        pointRadius: 0
-        },
-    ],
-    };
     const options = {
         animation:{
             duration:1000,
