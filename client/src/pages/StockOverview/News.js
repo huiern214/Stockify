@@ -18,7 +18,7 @@ function IndividualNews({image,title,site,date,url,stockWiseAnalysis}){
             </div>
             <div className="flex mt-3 ">
                 <div className='font-semibold'>{site}</div>
-                <div className='mx-3'>|</div>
+                <div className='mx-3 text-gray-500'>|</div>
                 <div className='font-normal text-base text-gray-500'>{date}</div>
             </div>
         </a>
@@ -55,7 +55,7 @@ function NewsRow() {
             'site': 'TipRanks',
             'date': '30 minutes ago',
             'url': 'https://www.tipranks.com/news/tesla-nasdaqtsla-lowers-ev-output-in-china',
-            'stockWiseAnalysis':"May lead to concerns about its growth trajectory and market demand,potentially impacting its stock trend negatively"
+            'stockWiseAnalysis':"May lead to concerns about its growth trajectory and market demand, potentially impacting its stock trend negatively"
         },
         {
             'image': NewsImage4,

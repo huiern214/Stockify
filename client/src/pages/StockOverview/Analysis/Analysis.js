@@ -5,6 +5,7 @@ import {ReactComponent as CancelIcon} from '../../../assets/circle-xmark.svg'
 import {ReactComponent as PlusIcon} from '../../../assets/plusIcon.svg'
 import axios from 'axios';
 import Prediction from './Prediction';
+import API_KEY from '../../../api/apiConfig';
 
 function Analysis(){
   const [dataFetched,setDataFetched]=useState(null);
@@ -63,7 +64,7 @@ function Analysis(){
       try{
           console.log("fromDateStr",fromDateStr)
           console.log("toDateStr",toDateStr)
-          const response=await axios.get('https://financialmodelingprep.com/api/v3/historical-chart/'+interval+'/'+stockSymbol+'?from='+fromDateStr+'&to='+toDateStr+'&apikey=sPjSlyqmXn0XzSgR7PZ0NjtROnwrwh8B');
+          const response=await axios.get(`https://financialmodelingprep.com/api/v3/historical-chart/'+interval+'/'+stockSymbol+'?from='+fromDateStr+'&to='+toDateStr+'&apikey=${API_KEY}`);
           const symbol="TSLA";
           const data=response.data.reverse();
           const dates = data.map(entry => entry.date);
@@ -203,7 +204,7 @@ function CompareStock({dataFetched,setDataFetched,buyChecked,setBuyChecked,sellC
     try{
         console.log("fromDateStr",fromDateStr)
         console.log("toDateStr",toDateStr)
-        const response=await axios.get('https://financialmodelingprep.com/api/v3/historical-chart/'+interval+'/'+stockSymbol+'?from='+fromDateStr+'&to='+toDateStr+'&apikey=sPjSlyqmXn0XzSgR7PZ0NjtROnwrwh8B');
+        const response=await axios.get(`https://financialmodelingprep.com/api/v3/historical-chart/'+interval+'/'+stockSymbol+'?from='+fromDateStr+'&to='+toDateStr+'&apikey=${API_KEY}`);
         const data=response.data.reverse();
         const dates = data.map(entry => entry.date);
         const prices = data.map(entry => entry.close);

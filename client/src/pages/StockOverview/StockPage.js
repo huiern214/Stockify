@@ -4,13 +4,19 @@ import StockIcon from './StockIcon';
 import NavBar from './NavBar';
 import Analysis from './Analysis/Analysis';
 import Company from './Company';
-import {useState,useEffect} from 'react'
-import star from '../../assets/star.svg';
+import { useState, useEffect } from 'react'
+import { FaStar, FaRegStar } from 'react-icons/fa';
+// import star from '../../assets/star.svg';
 
 
 function StockPage(){
     const [activeComponent, setActiveComponent] = useState('overview');
-    const [session, setSession]=useState('overview')
+    const [session, setSession] = useState('overview')
+    const [isWatchlisted, setIsWatchlisted] = useState(false);
+
+    const handleWatchlist = () => {
+        setIsWatchlisted(!isWatchlisted);
+    };
 
     const scrollToSection = (sectionId) => {
         const section = document.getElementById(sectionId);
@@ -49,9 +55,27 @@ function StockPage(){
                     <div id="StockIcon" className='flex flex-row w-[90%] h-full relative '>
                         <StockIcon {...stock} />
                     </div>
-                    <button className='absolute  bottom-10 right-2' aria-label="Add to wishlist"> 
+                    {/* <button className='absolute  bottom-10 right-2' aria-label="Add to wishlist"> 
                       <img src={star} alt='Add to wishlist' className='w-10 h-10 mr-2 text-yellow-500 transition-opacity duration-300 hover:opacity-80 fill-current'/>
-                    </button>
+                    </button> */}
+                    {isWatchlisted ? (
+                        <button
+                            className='absolute bottom-10 right-2'
+                            aria-label='Remove from watchlist'
+                            onClick={handleWatchlist}
+                        >
+                            <FaStar className='w-10 h-10 mr-2 text-yellow-500 transition-opacity duration-300 hover:opacity-80 fill-current' />
+                        </button>
+                    ) : (
+                        <button
+                            className='absolute bottom-10 right-2'
+                            aria-label='Add to watchlist'
+                            onClick={handleWatchlist}
+                        >
+                            <FaRegStar className='w-10 h-10 mr-2 text-yellow-500 transition-opacity duration-300 hover:opacity-80 fill-current' />
+                        </button>
+                        )
+                    }
                     <div className='absolute bottom-10 right-16 '>
                         <input
                             type='text'
