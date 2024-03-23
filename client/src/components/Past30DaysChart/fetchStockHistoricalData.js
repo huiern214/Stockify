@@ -1,13 +1,13 @@
 // fetchStockData.js
 import { useState, useEffect } from 'react';
-
+import API_KEY from '../../api/apiConfig';
 const useFetchHistoricalStockData = (tickerSymbols) => {
   const [stockData, setStockData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiKey = 'zzIsIQczVCtNjvqK3QSNXkzW0T4fg3XB';
+        const apiKey = API_KEY;
         const today = new Date();
         const pastDate = new Date();
         pastDate.setDate(today.getDate() - 30); // Set the date 30 days ago
@@ -20,9 +20,9 @@ const useFetchHistoricalStockData = (tickerSymbols) => {
         // Check if data.historical is an array before setting stockData
         if (Array.isArray(data.historical)) {
           setStockData(data.historical);
-          console.log('Stock data fetched successfully:', stockData);
+          // console.log('Stock data fetched successfully:', stockData);
         } else {
-          console.error('API response does not contain historical data array:', data);
+          // console.error('API response does not contain historical data array:', data);
         }
       } catch (error) {
         console.error('Error fetching stock data:', error);

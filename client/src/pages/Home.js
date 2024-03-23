@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState} from 'react'
-import TickerList from '../components/TickerList'
+import TickerList from './Home/TickerList'
 import nasdaqFile from '../indexdata/NASDAQ.csv'
 import dowFile from '../indexdata/DOW.csv'
 import sp500File from '../indexdata/S&P500.csv'
 import IndexChart from '../components/IndexChart'
 import TopGainerStocks from '../components/TopGainerStock'
 import TrendingStocks from '../components/TrendingStock'
-import TreeMapChart from '../components/TreeMapChart'
+import TreeMapChart from './Home/TreeMapChart'
 
 const Home = () => {
 
