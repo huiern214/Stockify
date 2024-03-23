@@ -5,6 +5,7 @@ import {ReactComponent as CancelIcon} from '../../../assets/circle-xmark.svg'
 import {ReactComponent as PlusIcon} from '../../../assets/plusIcon.svg'
 import axios from 'axios';
 import Prediction from './Prediction';
+import API_KEY from '../../../api/apiConfig';
 
 function Analysis(){
   const [dataFetched,setDataFetched]=useState(null);
@@ -63,7 +64,7 @@ function Analysis(){
       try{
           console.log("fromDateStr",fromDateStr)
           console.log("toDateStr",toDateStr)
-          const response=await axios.get('https://financialmodelingprep.com/api/v3/historical-chart/'+interval+'/'+stockSymbol+'?from='+fromDateStr+'&to='+toDateStr+'&apikey=2KvOgizGltQa3cyNGbcRHVAiLf0ePkSv');
+          const response=await axios.get(`https://financialmodelingprep.com/api/v3/historical-chart/'+interval+'/'+stockSymbol+'?from='+fromDateStr+'&to='+toDateStr+'&apikey=${API_KEY}`);
           const symbol="TSLA";
           const data=response.data.reverse();
           const dates = data.map(entry => entry.date);
@@ -154,7 +155,7 @@ function Analysis(){
                       <div className="flex flex-col w-full h-1/2 pt-3 pl-5">
                         <h2 className="mb-1 text-xl font-bold text-gray-700">Compare with</h2>
                         <div>
-                          <CompareStock dataFetched={dataFetched} setDataFetched={setDataFetched} buyChecked={buyChecked} sellChecked={sellChecked} period={period} interval={interval}/>
+                          <CompareStock dataFetched={dataFetched} setDataFetched={setDataFetched} buyChecked={buyChecked} setBuyChecked={setBuyChecked} sellChecked={sellChecked} setSellChecked={setSellChecked} period={period} interval={interval}/>
                         </div>
                       </div>
                       <div className="flex flex-col w-full h-1/2 pt-5 pl-5">
@@ -175,14 +176,23 @@ function Analysis(){
 }
 
 
-function CompareStock({dataFetched,setDataFetched,buyChecked,sellChecked,period,interval}){
-
+function CompareStock({dataFetched,setDataFetched,buyChecked,setBuyChecked,sellChecked,setSellChecked,period,interval}){
     const [showInput,setShowInput]=useState(false);
     const [stockName,setStockName]=useState(null);
     const [stocks,setStocks]=useState([]);
     const [isFetchDataset,setIsFetchDataset]=useState(false);
-    const [currentColor,setCurrentColor]=useState('rgb(0,0,255)');
-    const colors=['#0000FF', '#FFA500']
+    const [availableColor,setAvailableColor]=useState([
+      {
+        "color":"rgb(0,0,255)",
+        "colorInHex":'#0000FF',
+        "status":false
+      },
+      {
+        "color":'rgb(255,165,0)',
+        "colorInHex":'#FFA500',
+        "status":false
+      }
+    ])
 
   const fetchStockData=async(stockSymbol)=>{
     let toDate=new Date();
@@ -194,14 +204,21 @@ function CompareStock({dataFetched,setDataFetched,buyChecked,sellChecked,period,
     try{
         console.log("fromDateStr",fromDateStr)
         console.log("toDateStr",toDateStr)
-        const response=await axios.get('https://financialmodelingprep.com/api/v3/historical-chart/'+interval+'/'+stockSymbol+'?from='+fromDateStr+'&to='+toDateStr+'&apikey=2KvOgizGltQa3cyNGbcRHVAiLf0ePkSv');
+        const response=await axios.get(`https://financialmodelingprep.com/api/v3/historical-chart/'+interval+'/'+stockSymbol+'?from='+fromDateStr+'&to='+toDateStr+'&apikey=${API_KEY}`);
         const data=response.data.reverse();
         const dates = data.map(entry => entry.date);
         const prices = data.map(entry => entry.close);
-        console.log("color code",currentColor)
-        console.log("stock length",stocks.length)
-        return({ label:stockSymbol,backgroundColor: currentColor,// Setting up the background color for the dataset
-        borderColor: currentColor, data: prices,pointStyle: 'none',pointRadius: 0})
+        let lineColor=""
+        for(let i=0;i<stocks.length;i++){
+          console.log("stock[i].name:",stocks[i].name)
+          console.log("Stock symbol:",stockSymbol)
+          console.log("stock[i].color:",stocks[i].color)
+          if(stocks[i].name===stockSymbol){
+            lineColor=stocks[i].color
+          }
+        }
+        return({ label:stockSymbol,backgroundColor: lineColor,// Setting up the background color for the dataset
+        borderColor: lineColor, data: prices,pointStyle: 'none',pointRadius: 0})
   
     }catch(error){
       console.error('Error fetching stock data:',error);
@@ -222,10 +239,27 @@ function CompareStock({dataFetched,setDataFetched,buyChecked,sellChecked,period,
       setShowInput(false);
       setIsFetchDataset(true);
       if(stockName!==null){
-        const newStock={
-          "name":stockName
+        console.log("1")
+        let assignedColor=""
+        const updatedAvailableColor = [...availableColor];
+        for(let i=0;i<updatedAvailableColor.length;i++){
+          console.log("Color",availableColor[i].color);
+          console.log("Status B4",availableColor[i].status);
+          if(!updatedAvailableColor[i].status){
+            assignedColor=updatedAvailableColor[i].color;
+            updatedAvailableColor[i].status=true;
+            setAvailableColor(updatedAvailableColor);
+            break;
+          }
         }
-      setStocks([...stocks,newStock])
+        console.log("availableColor",availableColor);
+
+        const newStock={
+          "name":stockName,
+          "color":assignedColor
+        }
+         console.log("NewStockBulletPointColor",assignedColor)
+         setStocks([...stocks,newStock])
       }
     }
   }
@@ -236,11 +270,19 @@ function CompareStock({dataFetched,setDataFetched,buyChecked,sellChecked,period,
     setIsFetchDataset(true);
     if(stockName!==null){
       const newStock={
-        "name":stockName
-      }
-    setStocks([...stocks,newStock])
+        "name":stockName,
+        "color":availableColor.map(item=>{
+          if(item.status===false){
+            item.status=true;
+            return {
+              "color":item.color,
+              "status":item.status
+            }
+          }
+       })}
+       setStocks([...stocks,newStock])
     }
-  }
+    }
 
 
   const HandleStockNameChange=(e)=>{
@@ -249,20 +291,24 @@ function CompareStock({dataFetched,setDataFetched,buyChecked,sellChecked,period,
 
   const removeStock = (stockToRemove) => {
     const stockNameToBeRemoved=stockToRemove.name;
+    const updatedAvailableColor = availableColor.map(color => {
+      if (color.color === stockToRemove.color) {
+        return {
+          ...color,
+          status: false
+        };
+      }
+      return color;
+    });
+  
+    setAvailableColor(updatedAvailableColor); 
     const updatedStocks = stocks.filter(stock => stock !== stockToRemove);
     setStocks(updatedStocks);
-
     const updatedDatasets=dataFetched.datasets.filter(dataset=>dataset.label!==stockNameToBeRemoved)
     const newChartData={
       ...dataFetched,datasets:updatedDatasets
     };
     setDataFetched(newChartData)
-    if(stocks.length===0){
-      setCurrentColor('rgb(0, 0, 255)')
-    }
-    else if(stocks.length===1){
-      setCurrentColor('rgb(255, 165, 0)')
-    }
 
   }
 
@@ -321,15 +367,10 @@ function CompareStock({dataFetched,setDataFetched,buyChecked,sellChecked,period,
       let newChartData={
         ...dataFetched,datasets:[...dataFetched.datasets,newDataset]
       }
+      console.log("2")
       setDataFetched(newChartData);
       setIsFetchDataset(false);
       setStockName(null);
-      if(stocks.length===0){
-        setCurrentColor('rgb(0, 0, 255)')
-      }
-      else if(stocks.length===1){
-        setCurrentColor('rgb(255, 165, 0)')
-      }
     };
     if(isFetchDataset){
       fetchData();
@@ -340,11 +381,24 @@ function CompareStock({dataFetched,setDataFetched,buyChecked,sellChecked,period,
     };
   }, [isFetchDataset]);
 
+  useEffect(()=>{
+    setStocks([])
+    const updatedAvailableColor = availableColor.map(color => {
+        return {
+          ...color,
+          status: false
+        };
+    });
+    setAvailableColor(updatedAvailableColor);
+    setBuyChecked(false);
+    setSellChecked(false); 
+  },[period])
+
 
   return(
     <div className="flex flex-col w-full h-full">
     {stocks.map((stock, index) => (
-        <SingleStockToBeCompared stock={stock} color={colors[index]}  removeStock={() => removeStock(stock)}/>
+        <SingleStockToBeCompared stock={stock} removeStock={() => removeStock(stock)}/>
       ))}
       {stocks.length<=1 && (
         <div className="flex w-full h-full ml-4 my-1" >
@@ -368,10 +422,10 @@ function CompareStock({dataFetched,setDataFetched,buyChecked,sellChecked,period,
   )
 };
 
-const SingleStockToBeCompared=({stock,color,removeStock})=>{
+const SingleStockToBeCompared=({stock,removeStock})=>{
   return(
     <div className="flex items-center h-6 w-full pl-4 my-1">
-      <div className="flex h-full items-center w-3 bullet-point text-4xl mb-1 mr-2" style={{color:color}}>&#8226;</div>
+      <div className="flex h-full items-center w-3 bullet-point text-4xl mb-1 mr-2" style={{color:stock.color}}>&#8226;</div>
       <div className="flex h-full w-fit text-gray-500 mr-4">{stock.name }</div>
       <button className="flex h-full w-full" onClick={removeStock}>
         <CancelIcon className="flex h-4/6 w-fit items-center mt-1"/>

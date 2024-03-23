@@ -3,6 +3,7 @@ import axios from 'axios';
 import fire from '../../assets/fire.png'; // Assuming you have a fire icon
 import greenUpward from '../../assets/green_upward.png';
 import redDownward from '../../assets/red_downward.png';
+import API_KEY from '../../api/apiConfig';
 
 class TrendingStocks extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class TrendingStocks extends Component {
 
     componentDidMount() {
         // Make an API request to fetch trending stock data
-        axios.get('https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=vlosml6TntFhwyJjPgOGcZ90pqLbsIvb')
+        axios.get(`https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=${API_KEY}`)
             .then(response => {
                 const trendingStocksData = response.data;
                 this.setState({
@@ -35,7 +36,7 @@ class TrendingStocks extends Component {
         const { trendingStocks, expanded } = this.state;
 
         return (
-            <div className="rounded-lg border p-5">
+            <div className="rounded-lg border p-5 h-full">
                 <div className="flex items-center justify-between mb-3">
                     <img src={fire} alt="Trending Logo" className="w-6 h-auto mr-2" />
                     <h2 className="font-bold text-lg mr-auto">Trending</h2>
@@ -46,9 +47,9 @@ class TrendingStocks extends Component {
                     </div>
                 </div>
 
-                <ul>
+                <ul className='flex flex-col h-full md:pb-5'>
                     {trendingStocks.slice(0, expanded ? trendingStocks.length : 5).map((stock, index) => (
-                        <li key={index} className="flex items-center justify-between mb-2">
+                        <li key={index} className="flex flex-grow items-center justify-between mb-2">
                             <div>
                                 <span className="font-bold">{stock.symbol}</span>
                                 <span className="block text-sm text-gray-500">{stock.name}</span>

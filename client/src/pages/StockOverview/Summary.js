@@ -28,35 +28,35 @@ function TableSummary({volume,marketCap,dayMin,dayMax,yearMin,yearMax,priceEarni
             <tr>
                 <td className="text-left pl-5 text-gray-400 align-middle">
                     <span className='inline-block '>Volume</span>
-                    <InfoIcon className='w-4 h-4 ml-2 fill-gray-400 inline-block ' />
+                    <InfoIcon className='w-4 h-4 ml-2 fill-gray-400 inline-block' title={"Total number of shares traded"} />
                 </td>
-                <td className="text-right pr-2">{volume}</td>
+                <td className="text-right pr-2">{volume}M</td>
             </tr>
             <tr>
                 <td className="text-left pl-5 text-gray-400 align-middle">
                     <span className='inline-block '>Market Cap</span>
-                    <InfoIcon className='w-4 h-4 ml-2 fill-gray-400 inline-block ' />
+                    <InfoIcon className='w-4 h-4 ml-2 fill-gray-400 inline-block 'title={"A measure of a company's total value\n(Current Market Price per Share x Total Number of Outstading Shares)"} />
                 </td>
-                <td className="text-right pr-2">{marketCap}</td>
+                <td className="text-right pr-2">{marketCap}B</td>
             </tr>
             <tr>
                 <td className="text-left pl-5 text-gray-400 align-middle">
                     <span className='inline-block '>Day's Range</span>
-                    <InfoIcon className='w-4 h-4 ml-2 fill-gray-400 inline-block ' />
+                    <InfoIcon className='w-4 h-4 ml-2 fill-gray-400 inline-block ' title={"Showing the highest and lowest prices within a day"}/>
                 </td>
                 <td className="text-right pr-2">{dayMin+'-'+dayMax}</td>
             </tr>
             <tr>
                 <td className="text-left pl-5 text-gray-400 align-middle">
                     <span className='inline-block '>52W Range</span>
-                    <InfoIcon className='w-4 h-4 ml-2 fill-gray-400 inline-block ' />
+                    <InfoIcon className='w-4 h-4 ml-2 fill-gray-400 inline-block 'title={"Showing the highest and lowest prices within a 52 Weeks"} />
                 </td>
                 <td className="text-right pr-2">{yearMin+'-'+yearMax}</td>
             </tr>
             <tr>
                 <td className="text-left pl-5 text-gray-400 align-middle">
                     <span className='inline-block '>Price-Earning Ratio</span>
-                    <InfoIcon className='w-4 h-4 ml-2 fill-gray-400 inline-block ' />
+                    <InfoIcon className='w-4 h-4 ml-2 fill-gray-400 inline-block 'title={"Market Price per Share/Earnings per Share(EPS)"} />
                 </td>
                 <td className="text-right pr-2">{priceEarningRatio}</td>
             </tr>

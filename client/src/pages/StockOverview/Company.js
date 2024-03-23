@@ -71,10 +71,6 @@ const CompanySideDetail=({item,value})=>{
     )
 }
 
-const FinancialStatement=()=>{
-
-}
-
 const FinancialStatmentIncome=()=>{
     const tableHeader=["Year","Total Revenue","Cost of Revenue","Gross Profit","Operating Expenses","Operating Income","Income Before Tax",
                         "Net Income","Basic EPS","EPS Diluted","Basic Average Shares","Diluted Average Shares","EBITDA"]
