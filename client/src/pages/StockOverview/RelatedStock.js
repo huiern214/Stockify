@@ -41,17 +41,17 @@ function RelatedStock(){
 
 function IndividualRelatedStock({image,symbol,name,change,graph}){
     return(
-        <a href="/"className='flex flex-col my-3 mx-5'>
+        <a href="/"className='flex flex-col my-3 mx-2 md:mx-5'>
             <div className='flex w-full justify-between'>
-                <img src={image} alt={name+"'s icon"}></img>
+                <img className='object-fill' src={image} alt={name+"'s icon"}></img>
                 <div className='flex flex-col ml-5'>
                     <div className="font-bold">{symbol}</div>
                     <div className='text-gray-500 text-sm' >{name}</div>
                 </div>
-                <div className='mx-5 text-2xl text-green-500'>
+                <div className='mx-2 md:mx-5 text-2xl text-green-500'>
                     {change+"%"}
                 </div>
-                <img className="mx-5" src={graph} alt="Summary graph"></img>
+                <img className="object-fill mx-2 md:mx-5" src={graph} alt="Summary graph"></img>
             </div>
         </a>
     )

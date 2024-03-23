@@ -1,4 +1,5 @@
 import React from 'react';
+import Gauge from '../components/Gauge';
 
 function NotFound404() {
   return (

@@ -13,7 +13,7 @@ function StockSummary({volume,marketCap,dayMin,dayMax,yearMin,yearMax,priceEarni
       }
     return (
         <div className="flex flex-col w-full h-full">
-            <h2 className="mb-1 mt-5 text-xl pl-5 font-bold text-gray-700">Summary</h2>
+            <h2 className="mb-1 mt-3 text-xl pl-5 font-bold text-gray-700">Summary</h2>
             <div className="flex h-full w-full">
                 <TableSummary {...summary} />
             </div>
