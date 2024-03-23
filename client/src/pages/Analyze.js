@@ -27,7 +27,7 @@ const Analyze = () => {
         <div className="p-10 float-left">
           <div className="h-fit w-full flex flex-col md:flex-row justify-center items-center">
             <div>
-              <img src={Sample} alt="preview" />
+              <img className='md:max-w-[35rem]' src={Sample} alt="preview" />
             </div>
             <div className="p-10 h-full float-right justify-center items-center">
           <p className="text-xl md:text-5xl font-semibold mb-10">
