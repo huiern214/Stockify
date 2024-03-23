@@ -80,7 +80,9 @@ const Chat = () => {
           },
           {
             qna: false,
-            text: "Generated response.",
+            // Example question: "What is the current price of TSLA? Is it a good time to buy?"
+            // 170.83 -1.99 (-1.15%)
+            text: "The current price of TSLA is $170.83, which is a decrease of $1.99 (-1.15%) from the previous close. The stock is currently rated as a 'Buy' by analysts, because Tesla recently announced record deliveries and strong demand for its electric vehicles.",
             timestamp: currentTime
           }
       ];

@@ -51,37 +51,42 @@ function StockPage(){
     return(
         <div class="container mx-auto md:px-6">
             <div class="mx-[5%] md:mx-0">
-                <div className='flex flex-row w-full h-48 relative'>
+                <div className='flex justify-between items-start flex-col-reverse md:flex-row mt-10 w-full h-48 relative'>
                     <div id="StockIcon" className='flex flex-row w-[90%] h-full relative '>
                         <StockIcon {...stock} />
                     </div>
                     {/* <button className='absolute  bottom-10 right-2' aria-label="Add to wishlist"> 
                       <img src={star} alt='Add to wishlist' className='w-10 h-10 mr-2 text-yellow-500 transition-opacity duration-300 hover:opacity-80 fill-current'/>
                     </button> */}
-                    {isWatchlisted ? (
-                        <button
-                            className='absolute bottom-10 right-2'
-                            aria-label='Remove from watchlist'
-                            onClick={handleWatchlist}
-                        >
-                            <FaStar className='w-10 h-10 mr-2 text-yellow-500 transition-opacity duration-300 hover:opacity-80 fill-current' />
-                        </button>
-                    ) : (
-                        <button
-                            className='absolute bottom-10 right-2'
-                            aria-label='Add to watchlist'
-                            onClick={handleWatchlist}
-                        >
-                            <FaRegStar className='w-10 h-10 mr-2 text-yellow-500 transition-opacity duration-300 hover:opacity-80 fill-current' />
-                        </button>
-                        )
-                    }
-                    <div className='absolute bottom-10 right-16 '>
-                        <input
-                            type='text'
-                            placeholder='Search ticker'
-                            className='border border-gray-300 md:px-4 py-2 rounded-lg focus:outline-none focus:border-blue-500'
-                        />
+                    <div className='flex justify-between w-full items-end'>
+                        <div className=''></div>
+                        <div className='flex'>
+                            <div className=''>
+                            <input
+                                type='text'
+                                placeholder='Search ticker'
+                                className='border border-gray-300 md:px-4 py-2 rounded-lg focus:outline-none focus:border-blue-500'
+                            />
+                        </div>
+                        {isWatchlisted ? (
+                            <button
+                                className='mx-2'
+                                aria-label='Remove from watchlist'
+                                onClick={handleWatchlist}
+                            >
+                                <FaStar className='w-10 h-10 mr-2 text-yellow-500 transition-opacity duration-300 hover:opacity-80 fill-current' />
+                            </button>
+                        ) : (
+                            <button
+                                className='mx-2'
+                                aria-label='Add to watchlist'
+                                onClick={handleWatchlist}
+                            >
+                                <FaRegStar className='w-10 h-10 mr-2 text-yellow-500 transition-opacity duration-300 hover:opacity-80 fill-current' />
+                            </button>
+                            )
+                        }
+                        </div>
                     </div>
                 </div>
                 <div id="navigationBar" className='flex justify-start w-full md:justify-end'>
