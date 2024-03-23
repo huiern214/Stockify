@@ -124,9 +124,9 @@ function CustomizeButton({ sectionOptions, handleCheckboxChange }) {
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 translate-y-1"
       >
-        <Popover.Panel className="mt-1 absolute z-10 flex w-96 shadow-2xl">
-          <div className="w-auto flex-auto overflow-hidden rounded-2xl bg-white text-sm leading-loose shadow-lg ring-1 ring-gray-900/50">
-            <div className="p-2">
+        <Popover.Panel className="mt-1 absolute z-10 flex w-[18rem] md:w-96 shadow-2xl">
+          <div className="w-fit h-[30rem] flex-col rounded-2xl bg-white text-sm leading-loose shadow-lg ring-1 ring-gray-900/10">
+            <div className="p-2 overflow-y-auto h-[30rem]">
               {
               sectionOptions.map((section) => (
                 <div key={section.id} className="group relative flex gap-x-6 rounded-lg p-3 hover:bg-gray-50">
@@ -170,7 +170,7 @@ function ReportGrade({ grade }) {
 
 function ReportSection({ sectionTitle, sectionDesc, sectionText }) {
   return(
-    <div className="flex-1 border rounded-lg m-5 shadow-md">
+    <div className="flex-1 border h-full bg-white rounded-lg ml-5 mb-5 shadow-md">
       <div className="flex items-center justify-center">
         <div className="mt-5 mx-5 text-lg font-bold text-center">
           {sectionTitle}
@@ -263,8 +263,23 @@ const Report = () => {
               </span>
             </div>
           </div>
-          <div className="flex flex-col">
-            <h2 className="mx-5 mt-8 text-xl font-bold mb-1">Analysis Details</h2>
+          <div className="flex flex-col ">
+            <h2 className="mx-5 mt-8 text-xl font-bold mb-5">Analysis Details</h2>
+            {/* <div className="flex flex-col flex-wrap justify-center">
+              {sectionOptions.map((section, index) => (
+                section.checked && (
+                  // if index even, bg-primary/10, else bg-white
+                  <div key={index} className={`flex flex-col md:flex-row ${index % 2 === 1 ? 'bg-primary/10' : 'bg-white'}`}>
+                  <ReportSection
+                    key={section.id}
+                    sectionTitle={section.sectionTitle}
+                    sectionDesc={section.sectionDesc}
+                    sectionText={sections[section.id - 1].sectionText}
+                    />
+                    </div>
+                )
+              ))}
+            </div> */}
             {(() => {
               const selectedSections = sectionOptions.filter(section => section.checked);
               const itemCount = selectedSections.length;
@@ -296,7 +311,7 @@ const Report = () => {
                   );
                 }
                 rows.push(
-                  <div key={rowIndex} className="flex flex-col md:flex-row">
+                  <div key={rowIndex} className="flex flex-col md:flex-row md:mb-5 mr-5">
                     {columns}
                   </div>
                 );

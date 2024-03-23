@@ -181,7 +181,7 @@ function DateSelector({ variation, handleDateChange }) {
 function AppliedFilter({ ticker = "None", handleDeleteFilter }) {
   return (
     <button
-      className="flex items-center mx-1 p-2 rounded-full bg-deep_blue text-white hover:bg-blue-900"
+      className="flex items-center mx-1 p-1 px-2 rounded-lg bg-primary text-white hover:bg-blue-900"
       onClick={ticker !== "None" ? handleDeleteFilter : null}
     >
       <b>{ticker}</b>

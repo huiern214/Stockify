@@ -378,10 +378,10 @@ const TickerList = () => {
                     <div className="flex flex-col" onClick={LinkToStockPage(stock.ticker)}>
                       <span className="font-bold text-left">{stock.ticker}</span>
                       <span className="block text-gray-500 text-left">{stock.name}</span>
-                      </div>
-                      <div className="flex justify-center items-center">
-                        <img src={stock.icon} alt="Buy" className="w-7 h-7 mr-12" />
-                      </div>
+                    </div>
+                    <div className="flex justify-center items-center">
+                      <img src={stock.icon} alt="Buy" className="w-7 h-7 mr-12" />
+                    </div>
                   </div>
                 </td>
                 <td className="px-4 py-2">${stock.data.currentPrice.toFixed(2)}</td>

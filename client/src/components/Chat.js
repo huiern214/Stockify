@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useRef } from 'react';
-import ChatIcon from '../assets/Chat.png';
+// import ChatIcon from '../assets/Chat.png';
+import { FaCommentDots } from 'react-icons/fa';
 import SendIcon from '../assets/Send.png';
 import StockWise from '../assets/StockWise.png';
 
 function Question({ text, timestamp }) {
   return (
     <div class="flex flex-row-reverse items-end gap-2.5 md:mb-2">
-      <div class="flex flex-col w-fit max-w-[80%] text-wrap leading-1.5 py-2 px-3 bg-primary rounded-s-xl rounded-ee-xl">
+      <div class="flex flex-col w-fit text-wrap leading-1.5 py-2 px-3 bg-primary rounded-s-xl rounded-ee-xl">
         <p class="text-sm font-normal break-words text-white max-w-full text-wrap">{text}</p>
         <p className="text-white text-[10px] font-light text-right ml-3">{timestamp}</p>
       </div>
@@ -19,7 +20,7 @@ function Answer({ text, timestamp }) {
   return (
     <div class="flex items-start gap-2.5 md:mb-2">
     <img class="w-8 h-8 rounded-full shadow-sm border border-gray-200" src={StockWise} alt="StockWise"/>
-    <div class="flex flex-col w-fit max-w-[80%] leading-1.5 py-2 px-3 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
+    <div class="flex flex-col w-fit leading-1.5 py-2 px-3 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
         <p class="text-sm font-normal break-words text-gray-900 dark:text-white max-w-full text-wrap">{text}</p>
         <p className="text-gray-500 text-[10px] font-light text-right">{timestamp}</p>
     </div>
@@ -115,7 +116,8 @@ const Chat = () => {
       {/* Chat floating button */}
       <div>
         <button onClick={handleClick} className="p-4 my-2 bg-primary rounded-3xl shadow-2xl hover:bg-blue-600 active:shadow-inner">
-          <img src={ChatIcon} alt="Chat" className="w-8 h-8"/>
+          {/* <img src={ChatIcon} alt="Chat" className="w-8 h-8"/> */}
+          <FaCommentDots className="w-8 h-8 text-white"/>
         </button>
         {!isOpen && (
           <span className="absolute top-0 right-0 -mt-1 -mr-1" onClick={handleClick}>
@@ -127,7 +129,7 @@ const Chat = () => {
         )}
       </div>
       {isOpen && (
-        <div className="h-auto w-[80%] min-w-[20rem] md:min-w-[30rem] bg-white rounded-xl shadow-3xl border border-gray-300">
+        <div className="h-auto w-[80%] md:w-[30%] min-w-[20rem] md:min-w-[30rem] bg-white rounded-xl shadow-3xl border border-gray-300">
           <p className="flex justify-between items-center p-3 text-center text-xl border-b border-gray-200">
             <p className='text-gray-700 font-semibold'>StockWise</p>
             <button onClick={createNewChat} className="pb-1 px-2 bg-red-500 rounded-full hover:bg-red-600">
