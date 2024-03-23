@@ -1,10 +1,11 @@
 import { Line } from "react-chartjs-2"; // Importing the Line component from the react-chartjs-2 library
 import axios from 'axios';
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
+import api from '../../../api/axiosConfig';
 
 const fetchStockData=async()=>{
   try{
-    const response=await axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/AAPL?apikey=vlosml6TntFhwyJjPgOGcZ90pqLbsIvb');
+    const response=await axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/AAPL?apikey=${API_KEY}`);
     const symbol=response.data.symbol;
     const data=response.data.historical;
     const dates = data.map(entry => entry.date);
