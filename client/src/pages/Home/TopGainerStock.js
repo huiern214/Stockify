@@ -3,6 +3,7 @@ import axios from 'axios';
 import rocket from '../../assets/rocket.png';
 import greenUpward from '../../assets/green_upward.png';
 import redDownward from '../../assets/red_downward.png';
+import API_KEY from '../../api/apiConfig';
 
 class TopGainerStocks extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class TopGainerStocks extends Component {
     componentDidMount() {
         // Make an API request to fetch all top gainer stock data
         axios
-            .get('https://financialmodelingprep.com/api/v3/stock_market/gainers?apikey=vlosml6TntFhwyJjPgOGcZ90pqLbsIvb')
+            .get(`https://financialmodelingprep.com/api/v3/stock_market/gainers?apikey=${API_KEY}`)
             .then(response => {
                 const topGainersData = response.data;
                 const sortedTopGainers = topGainersData.sort((a, b) => b.changesPercentage - a.changesPercentage);
@@ -40,7 +41,7 @@ class TopGainerStocks extends Component {
         const { topGainers, expanded } = this.state;
 
         return (
-            <div className="rounded-lg border p-5">
+            <div className="rounded-lg border p-5 h-full">
                 <div className="flex items-center justify-between mb-3">
                     <img src={rocket} alt="Rocket Logo" className="w-6 h-auto mr-2" />
                     <h2 className="font-bold text-lg mr-auto">Top Gainer</h2>
@@ -51,9 +52,9 @@ class TopGainerStocks extends Component {
                     </div>
                 </div>
 
-                <ul>
+                <ul className='flex flex-col h-full md:pb-5'>
                     {topGainers.slice(0, expanded ? topGainers.length : 5).map((gainer, index) => (
-                        <li key={index} className="flex items-center justify-between mb-2">
+                        <li key={index} className="flex items-center justify-between mb-2 flex-grow">
                             <div>
                                 <span className="font-bold">{gainer.symbol}</span>
                                 <span className="block text-sm text-gray-500">{gainer.name}</span>

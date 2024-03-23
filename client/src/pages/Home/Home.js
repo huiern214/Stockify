@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState} from 'react'
-import Heatmap from './Heatmap'
-import TickerList from './TickerList'
+// import Heatmap from './Heatmap'
+import TickerList from './TickerList/TickerList'
 import nasdaqFile from '../../indexdata/NASDAQ.csv'
 import dowFile from '../../indexdata/DOW.csv'
 import sp500File from '../../indexdata/S&P500.csv'
 import IndexChart from './IndexChart'
 import TopGainerStocks from './TopGainerStock'
 import TrendingStocks from './TrendingStock'
+import TreeMapChart from './TreeMapChart'  
 
 const Home = () => {
 
@@ -79,7 +80,7 @@ const Home = () => {
 
 
       {/* Daily Movers */}
-      <h2 className="my-5 md:px-4 text-2xl font-bold text-gray-700">Daily Mover</h2>
+      <h2 className="mt-10 mb-5 md:px-4 text-2xl font-bold text-gray-700">Daily Mover</h2>
       <div className="flex flex-col md:flex-row justify-between mt-3">
         
         {/* Top Gainer Stocks */}
@@ -95,7 +96,8 @@ const Home = () => {
         {/* Heatmap */}
         <div className="w-full md:w-1/3 my-3 md:m-3">
           {/* Heatmap component */}
-          <Heatmap data={heatmapData} />
+          {/* <Heatmap data={heatmapData} /> */}
+          <TreeMapChart />
         </div>
       </div>
       
