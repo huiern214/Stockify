@@ -15,10 +15,10 @@ const Learn = () => {
 
   // dict for icons
   const icons = {
-    "Art": (
+    "Finance": (
       <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
     ),
-    "Travels": (
+    "Trading": (
       <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
     ),
     "Business": (
@@ -28,87 +28,61 @@ const Learn = () => {
 
   const data = [
     {
-      title: "Stock market boom",
-      image: "https://mdbcdn.b-cdn.net/img/new/standard/city/018.jpg",
+      title: "Introduction to Stock Market",
+      image: "https://mdbcdn.b-cdn.net/img/new/standard/city/088.jpg",
       category: "Business",
       sponsored: true,
       date: "10.01.2022",
       author: "Joe Svan",
-      content: "Curabitur tristique, mi a mollis sagittis, metus felis mattis arcu, non vehicula nisl dui quis diam. Mauris ut risus eget massa volutpat feugiat. Donec.",
+      content: "This article provides a comprehensive introduction to the stock market, covering key concepts such as stocks, bonds, and mutual funds, as well as the role of stock exchanges and how to invest in stocks.",
     },
-
     {
-      title: "Exhibition in Paris",
+      title: "Understanding Stock Market Trends",
       image: "https://mdbcdn.b-cdn.net/img/new/standard/city/032.jpg",
-      category: "Art",
+      category: "Business",
       sponsored: false,
       date: "12.01.2022",
       author: "Halley Frank",
-      content: "Suspendisse in volutpat massa. Nulla facilisi. Sed aliquet diam orci, nec ornare metus semper sed. Integer volutpat ornare erat sit amet rutrum.",
+      content: "In this article, we delve into the various trends observed in the stock market, including bullish and bearish trends, and how investors can interpret and capitalize on these trends.",
     },
-
     {
-      title: "Welcome to California",
+      title: "Stock Market Analysis Techniques",
       image: "https://mdbcdn.b-cdn.net/img/new/standard/city/059.jpg",
-      category: "Travels",
+      category: "Finance",
       sponsored: false,
       date: "13.01.2022",
       author: "Anna Maria Doe",
-      content: "Ut pretium ultricies dignissim. Sed sit amet mi eget urna placerat vulputate. Ut vulputate est non quam dignissim elementum. Donec a ullamcorper diam.",
+      content: "This article explores different techniques for analyzing stocks, including fundamental analysis, technical analysis, and sentiment analysis, providing insights into how investors can make informed decisions.",
     },
-
     {
-      title: "Stock Strategies",
+      title: "Risk Management in Stock Trading",
       image: "https://mdbcdn.b-cdn.net/img/new/standard/city/018.jpg",
-      category: "Business",
+      category: "Trading",
       sponsored: true,
       date: "15.01.2022",
       author: "Karl Smith",
-      content: "Curabitur tristique, mi a mollis sagittis, metus felis mattis arcu, non vehicula nisl dui quis diam. Mauris ut risus eget massa volutpat feugiat. Donec.",
+      content: "Managing risk is crucial in stock trading. This article discusses various risk management strategies, such as diversification, stop-loss orders, and position sizing, to help traders protect their capital.",
     },
-
     {
-      title: "Stock market boom",
-      image: "https://mdbcdn.b-cdn.net/img/new/standard/city/018.jpg",
-      category: "Business",
+      title: "Developing a Winning Stock Portfolio",
+      image: "https://mdbcdn.b-cdn.net/img/new/standard/city/055.jpg",
+      category: "Trading",
       sponsored: true,
-      date: "10.01.2022",
-      author: "Joe Svan",
-      content: "Curabitur tristique, mi a mollis sagittis, metus felis mattis arcu, non vehicula nisl dui quis diam. Mauris ut risus eget massa volutpat feugiat. Donec.",
+      date: "20.01.2022",
+      author: "John Johnson",
+      content: "Building a successful stock portfolio requires careful planning and diversification. This article provides tips and strategies for constructing a well-balanced portfolio that aligns with your financial goals.",
     },
-
     {
-      title: "Stock Strategies",
-      image: "https://mdbcdn.b-cdn.net/img/new/standard/city/018.jpg",
-      category: "Business",
+      title: "World Economic Outlook Report",
+      image: "https://mdbcdn.b-cdn.net/img/new/standard/city/072.jpg",
+      category: "Finance",
       sponsored: true,
-      date: "15.01.2022",
-      author: "Karl Smith",
-      content: "Curabitur tristique, mi a mollis sagittis, metus felis mattis arcu, non vehicula nisl dui quis diam. Mauris ut risus eget massa volutpat feugiat. Donec.",
-    },
-
-    {
-      title: "Stock market boom",
-      image: "https://mdbcdn.b-cdn.net/img/new/standard/city/018.jpg",
-      category: "Business",
-      sponsored: true,
-      date: "10.01.2022",
-      author: "Joe Svan",
-      content: "Curabitur tristique, mi a mollis sagittis, metus felis mattis arcu, non vehicula nisl dui quis diam. Mauris ut risus eget massa volutpat feugiat. Donec.",
-    },
-
-    {
-      title: "Stock Strategies",
-      image: "https://mdbcdn.b-cdn.net/img/new/standard/city/018.jpg",
-      category: "Business",
-      sponsored: true,
-      date: "15.01.2022",
-      author: "Karl Smith",
-      content: "Curabitur tristique, mi a mollis sagittis, metus felis mattis arcu, non vehicula nisl dui quis diam. Mauris ut risus eget massa volutpat feugiat. Donec.",
-    },
-    // Add more objects for additional content items
+      date: "22.01.2022",
+      author: "Emily Brown",
+      content: "The World Economic Outlook report provides insights into the global economic landscape, including growth projections, inflation rates, and key risks. This article summarizes the key findings of the report.",
+    }
   ];
-
+  
   return (
     <div className="container mx-auto md:px-6">
       <div className="mx-[5%] md:mx-0">

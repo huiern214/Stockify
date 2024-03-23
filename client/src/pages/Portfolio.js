@@ -8,8 +8,8 @@ import {
   FaEdit,
   FaPlus,
   FaTrash,
-  FaArrowUp,
   FaArrowDown,
+  FaArrowUp,
 } from "react-icons/fa";
 
 const oriWatchlistItems = [
@@ -103,7 +103,7 @@ const oriTransactionItems = [
 
 function FilterButton({ filters, handleCheckboxChange, setFiltersState }) {
   return (
-    <Popover className="relative">
+    <Popover className="relative mt-5">
       <Popover.Button className="inline-flex items-center p-2 rounded-2xl hover:bg-gray-50 border border-gray-200/50 text-gray-700">
         <img src={Filter} alt="Filter" className="w-5 h-5 mr-2 " />
         Filter
@@ -532,7 +532,7 @@ function TransactionTable({
   toDate,
   searchQuery,
 }) {
-  const [sortedItems, setSortedItems] = useState(transactionItems);
+  const [sortedItems, setSortedItems] = useState(transactionItems.sort((a, b) => new Date(b.Date) - new Date(a.Date)));
   const [sortConfig, setSortConfig] = useState({
     Date: "ascending",
     Type: null,
@@ -606,22 +606,22 @@ function TransactionTable({
               {sortConfig["Date"] === null ? (
                 ""
               ) : sortConfig["Date"] === "ascending" ? (
-                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
-              ) : (
                 <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />
+              ) : (
+                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
               )}
             </th>
             <th
-              className="px-1 py-3 hover:text-black cursor-pointer text-center"
+              className="px-1 py-3 hover:text-black cursor-pointer text-right"
               onClick={() => requestSort("Type")}
             >
               Type{" "}
               {sortConfig["Type"] === null ? (
                 ""
               ) : sortConfig["Type"] === "ascending" ? (
-                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
-              ) : (
                 <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />
+              ) : (
+                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
               )}
             </th>
             <th
@@ -632,9 +632,9 @@ function TransactionTable({
               {sortConfig["Ticker"] === null ? (
                 ""
               ) : sortConfig["Ticker"] === "ascending" ? (
-                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
-              ) : (
                 <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />
+              ) : (
+                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
               )}
             </th>
             <th
@@ -645,9 +645,9 @@ function TransactionTable({
               {sortConfig["Quantity"] === null ? (
                 ""
               ) : sortConfig["Quantity"] === "ascending" ? (
-                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
-              ) : (
                 <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />
+              ) : (
+                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
               )}
             </th>
             <th
@@ -658,9 +658,9 @@ function TransactionTable({
               {sortConfig["PricePerShare"] === null ? (
                 ""
               ) : sortConfig["PricePerShare"] === "ascending" ? (
-                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
-              ) : (
                 <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />
+              ) : (
+                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
               )}
             </th>
             <th
@@ -671,9 +671,9 @@ function TransactionTable({
               {sortConfig["Fees"] === null ? (
                 ""
               ) : sortConfig["Fees"] === "ascending" ? (
-                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
-              ) : (
                 <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />
+              ) : (
+                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
               )}
             </th>
             <th className="px-1 py-3">Notes</th>
@@ -722,7 +722,7 @@ function WatchlistTable({
   toDate,
   searchQuery,
 }) {
-  const [sortedItems, setSortedItems] = useState(watchlistItems);
+  const [sortedItems, setSortedItems] = useState(watchlistItems.sort((a, b) => a.Ticker.localeCompare(b.Ticker)));
   const [sortConfig, setSortConfig] = useState({
     Ticker: null,
     Price: null,
@@ -798,9 +798,9 @@ function WatchlistTable({
               {sortConfig["Ticker"] === null ? (
                 ""
               ) : sortConfig["Ticker"] === "ascending" ? (
-                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
-              ) : (
                 <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />
+              ) : (
+                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
               )}
             </th>
             <th
@@ -811,9 +811,9 @@ function WatchlistTable({
               {sortConfig["Price"] === null ? (
                 ""
               ) : sortConfig["Price"] === "ascending" ? (
-                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
-              ) : (
                 <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />
+              ) : (
+                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
               )}
             </th>
             <th
@@ -824,9 +824,9 @@ function WatchlistTable({
               {sortConfig["Holdings"] === null ? (
                 ""
               ) : sortConfig["Holdings"] === "ascending" ? (
-                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
-              ) : (
                 <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />
+              ) : (
+                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
               )}
             </th>
             <th
@@ -837,9 +837,9 @@ function WatchlistTable({
               {sortConfig["RealizedPL"] === null ? (
                 ""
               ) : sortConfig["RealizedPL"] === "ascending" ? (
-                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
-              ) : (
                 <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />
+              ) : (
+                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
               )}
             </th>
             <th
@@ -850,9 +850,9 @@ function WatchlistTable({
               {sortConfig["UnrealizedPL"] === null ? (
                 ""
               ) : sortConfig["UnrealizedPL"] === "ascending" ? (
-                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
-              ) : (
                 <FaArrowDown className="w-4 h-4 inline-block mx-1 mb-1" />
+              ) : (
+                <FaArrowUp className="w-4 h-4 inline-block mx-1 mb-1" />
               )}
             </th>
             <th className="px-1 py-3 text-center">Action</th>
@@ -893,13 +893,13 @@ function WatchlistTable({
 
 const Portfolio = () => {
   const dashboardData = {
-    totalPnL: 10000,
-    totalPnLPercentage: 10,
-    unrealisedPnL: 20000,
-    unrealisedPnLPercentage: 20,
+    totalPnL: 19800,
+    totalPnLPercentage: 12.77,
+    unrealisedPnL: 26500,
+    unrealisedPnLPercentage: 17.09,
   };
 
-  const portfolioValue = 100000;
+  const portfolioValue = 155000;
 
   const getPnLColor = (value) => {
     if (value > 0) return "text-green-500";
@@ -1132,7 +1132,7 @@ const Portfolio = () => {
           </div>
         </div>
 
-        <div className="flex items-center md:justify-between md:mx-5 py-4 md:p-4">
+        <div className="flex flex-col-reverse items-start md:flex-row md:items-center md:justify-between md:mr-5 py-2 md:p-4">
           {watchlistActive && (
             <FilterButton
               filters={watchlistFilters}
